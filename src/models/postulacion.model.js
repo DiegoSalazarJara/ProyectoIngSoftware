@@ -1,5 +1,5 @@
 //importa el modulo 'mongoose' para crear el modelo
-import {Schema, model} from 'mongoose';
+import {mongoose, Schema, model} from 'mongoose';
 
 //crea el esquema de la coleccion
 const postulacionSchema = new Schema({
@@ -8,28 +8,56 @@ const postulacionSchema = new Schema({
         type: String,
         required: true,
     },
-
     rutpostulante: {
         type: String,
         required: true,
         unique: true,
     },
-
+    nombreEmpresa: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     rutempresa: {
         type: String,
         required: true,
         unique: true,
     },
 
-    direccion: {
+    direccionEmpresa: {
         type: String,
         required: true,
     },
 
-    patente: {
+    tipoPatente: {
         type: String,
         required: true,
     },
+    certificadoResidencia: {
+        type: String,
+        required: true
+    },
+
+    certificadoConstitucion: {
+        type: String,
+        required: true
+    },
+
+    fotocopiaCarnet: {
+        type: String,
+        required: true
+    },
+
+    certificadoArriendo: {
+        type: String,
+        required: true
+    },
+    roles: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "postulante",
+        },
+      ],
 },
     {
     timestamps: {
@@ -40,14 +68,3 @@ const postulacionSchema = new Schema({
 });
 
 export default model('Postulacion', postulacionSchema);
-/*
-•	Nombre persona (postulante) (String) -> express-validator
-•	Rut persona (postulante) (String) ->rutjs
-•	Rut persona jurídica (empresa) (String) ->rutjs
-•	Dirección empresa  (String) -> express-validator
-•	Selección tipo de patente a postular (alcohol o comercial) (preguntar como puedo limitarlo a 2 tipos de patentes)
-•	Certificado residencia (subida en archivo pdf) -> mime
-•	Certificado de constitución de la empresa (subida en archivo pdf)
-•	Fotocopia del carnet (subida en archivo pdf)
-•	Certificado de propiedad o arriendo del lugar (subida en archivo pdf)
-*/
