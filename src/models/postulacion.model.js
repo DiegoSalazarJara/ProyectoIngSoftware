@@ -1,5 +1,5 @@
 //importa el modulo 'mongoose' para crear el modelo
-import {mongoose, Schema, model} from 'mongoose';
+import {Schema, model} from 'mongoose';
 
 //crea el esquema de la coleccion
 const postulacionSchema = new Schema({
@@ -9,6 +9,11 @@ const postulacionSchema = new Schema({
         required: true,
     },
     rutpostulante: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
         type: String,
         required: true,
         unique: true,
@@ -28,36 +33,64 @@ const postulacionSchema = new Schema({
         type: String,
         required: true,
     },
-
     tipoPatente: {
         type: String,
         required: true,
-    },
+        enum: ['alcohol', 'comercial'],
+        set: (value) => value.toLowerCase(),
+        validate: {
+          validator: function (value) {
+            if (value === 'alcohol') {
+              return value.length === 7;
+              
+            } else if (value === 'comercial') {
+              return value.length === 9;
+            }
+            return false;
+          },
+          message: 'La longitud del campo tipoPatente no es válida.'
+        }
+      },
     certificadoResidencia: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+          validator: function (value) {
+            return value.endsWith('.pdf');
+          },
+          message: 'El certificado de constitucion debe ser un archivo PDF'
+      }
     },
-
     certificadoConstitucion: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function (value) {
+              return value.endsWith('.pdf');
+            },
+            message: 'El certificado de constitucion debe ser un archivo PDF'
+        }
     },
-
     fotocopiaCarnet: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function (value) {
+              return value.endsWith('.png');
+            },
+            message: 'La imagen debe ser un archivo .png'
+        }
     },
-
     certificadoArriendo: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function (value) {
+              return value.endsWith('.pdf');
+            },
+            message: 'El certificado de arriendo debe ser un archivo PDF'
+        }
     },
-    roles: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "postulante",
-        },
-      ],
 },
     {
     timestamps: {
