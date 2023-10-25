@@ -1,5 +1,4 @@
 "use strict";
-
 //importa el modulo de express
 import express from 'express';
 import userRoutes from './user.routes.js';
@@ -18,9 +17,11 @@ router.use("/users", authenticationMiddleware, userRoutes);
 router.use("/auth", authRoutes);
 
 //Define la ruta para la postulacion /api/postulacion
-router.use('/postulacion', postulacionRoutes);
+router.use('/postulacion', authenticationMiddleware, postulacionRoutes);
 
 //Define la ruta para la patente /api/patente
-router.use('/patente', patenteRoutes);
+router.use('/patente', authenticationMiddleware, patenteRoutes);
+
+
 
 export default router;
