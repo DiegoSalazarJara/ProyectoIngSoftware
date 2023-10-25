@@ -38,13 +38,15 @@ async function setupServer() {
     app.use("/api", indexRoutes);
 
     // Inicia el servidor en el puerto especificado
-    app.listen(PORT, () => {
+   app.listen(PORT, () => { 
       console.log(`=> Servidor corriendo en ${HOST}:${PORT}/api`);
     });
   } catch (err) {
     handleError(err, "/index.js -> setupServer");
   }
+  
 }
+
 
 /**
  * Inicia la API
@@ -68,5 +70,6 @@ async function setupAPI() {
 setupAPI()
   .then(() => console.log("=> API Iniciada exitosamente"))
   .catch((err) => handleFatalError(err, "/index.js -> setupAPI"));
+
 
 
