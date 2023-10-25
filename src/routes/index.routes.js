@@ -6,6 +6,10 @@ import authRoutes from './auth.routes.js';
 import postulacionRoutes from './postulacion.routes.js';
 import patenteRoutes from './patente.routes.js'
 import authenticationMiddleware from '../middlewares/authentication.middleware.js';
+import apelacionRoutes from './apelacion.routes.js';
+import evaluadorRoutes from './evaluador.routes.js';
+import respuestaRoutes from './respuesta.routes.js';
+
 
 //Instancia del enrutador
 const router = express();
@@ -21,6 +25,15 @@ router.use('/postulacion', authenticationMiddleware, postulacionRoutes);
 
 //Define la ruta para la patente /api/patente
 router.use('/patente', authenticationMiddleware, patenteRoutes);
+
+//Define la ruta para la apelacion /api/apelacion
+router.use('/apelacion', apelacionRoutes);
+
+//Define la ruta para el resultado /api/evaluador
+router.use('/evaluador', evaluadorRoutes);
+
+//Define la ruta para el resultado /api/respuesta
+router.use('/respuesta', respuestaRoutes);
 
 
 
