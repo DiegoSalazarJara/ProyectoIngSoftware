@@ -41,7 +41,7 @@ router.use('/pagare', pagareRoutes);
 router.use('/secretaria', secretariaRoutes);
 
 //Define la ruta para el resultado /api/respuesta
-router.use('/respuesta', respuestaRoutes);
+router.use('/respuesta', authenticationMiddleware , respuestaRoutes);
 
 
 
