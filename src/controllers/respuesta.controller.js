@@ -37,8 +37,6 @@ export const clasificarPostulacion = async (req, res) => {
 
     postulacion.evaluador = evaluadorId;
     await postulacion.save();
-
-    // evaluador.postulacionesAsignadas.push(postulacionId); // Esta línea permite enviar el id de la postulación asignada.
     await evaluador.save();
 
     console.log('La postulación ha sido evaluada y clasificada exitosamente');
@@ -48,49 +46,6 @@ export const clasificarPostulacion = async (req, res) => {
   }
 };
 
-
-/*export const clasificarPostulacion = async (req, res) => {
-  try {
-    const { evaluadorId, postulacionId, evaluar } = req.body;
-
-    const postulacion = await Postulacion.findById(postulacionId);
-
-    if (postulacion.evaluador) {
-      console.log('Esta postulación ya fue asignada a un evaluador');
-      return res.status(400).json({ message: 'Esta postulación ya fue asignada a un evaluador' });
-    }
-
-    const evaluador = await Evaluador.findById(evaluadorId);
-
-    const evaluadorAsignado = await Respuesta.findOne({ postulacion: postulacionId });
-    if (evaluadorAsignado) {
-      console.log('Esta postulación ya fue evaluada por otro evaluador');
-      return res.status(400).json({ message: 'Esta postulación ya fue evaluada por otro evaluador' });
-    }
-
-    const respuesta = new Respuesta({
-      postulacion: postulacionId,
-      evaluador: evaluadorId,
-      evaluar: evaluar ? 'aprobado' : 'rechazado',
-    });
-
-    const respuestaSave = await respuesta.save();
-    res.status(201).json(respuestaSave);
-
-    postulacion.evaluador = evaluadorId;
-
-    await postulacion.save();
-
-    // evaluador.postulacionesAsignadas.push(postulacionId); //Esta linea permite enviar el id de la postulacion asignada.
-    await evaluador.save();
-
-    console.log('La postulación ha sido evaluada y clasificada exitosamente');
-  } catch (error) {
-    console.error('Error al clasificar la postulación:', error);
-    res.status(500).json({ message: 'Error al clasificar la postulación, verifique que la id introducida es la correcta' });
-  }
-}; */
- 
 
 export const getRespuestas = async (req, res) => {
   try {
