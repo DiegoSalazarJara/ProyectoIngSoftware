@@ -6,7 +6,7 @@ import authRoutes from './auth.routes.js';
 import postulacionRoutes from './postulacion.routes.js';
 import patenteRoutes from './patente.routes.js'
 import authenticationMiddleware from '../middlewares/authentication.middleware.js';
-//import apelacionRoutes from './apelacion.routes.js';
+import apelacionRoutes from './apelacion.routes.js';
 import evaluadorRoutes from './evaluador.routes.js';
 import pagareRoutes from './pagare.routes.js';
 import secretariaRoutes from './secretaria.routes.js';
@@ -29,7 +29,7 @@ router.use('/postulacion', authenticationMiddleware, postulacionRoutes);
 router.use('/patente', authenticationMiddleware, patenteRoutes);
 
 //Define la ruta para la apelacion /api/apelacion
-//router.use('/apelacion', apelacionRoutes);
+router.use('/apelacion', authenticationMiddleware, apelacionRoutes);
 
 //Define la ruta para el resultado /api/evaluador
 router.use('/evaluador', evaluadorRoutes);

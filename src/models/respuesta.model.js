@@ -14,8 +14,20 @@ const respuestaSchema = new Schema({
   },
   evaluar: {
     type: String,
+    required: true,
     enum: ['aprobado', 'rechazado'],
-    required: true, 
+    set: (value) => value.toLowerCase(),
+    validate: {
+      validator: function (value) {
+        if (value === 'aprobado'){
+          return value.length === 8;
+        } else if (value === 'rechazado'){
+          return value.length === 9;
+        }
+        return false;
+      },
+      message: 'La longitud del parametro evaluar no es válida.'
+    }
   },
 });
 
