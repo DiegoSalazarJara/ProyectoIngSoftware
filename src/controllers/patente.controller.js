@@ -79,3 +79,16 @@ const alcoholRandom = () => {
     }
     return randomNum;
   };
+
+  export const deletePatente = async (req, res) => {
+    try {
+      const patente = await Patente.findById(req.params.patenteId);
+        if(!patente){
+            return res.status(404).json({message: 'patente no encontrada'});
+        }
+        await patente.deleteOne();
+        res.status(200).json({message: 'patente eliminada'})
+    } catch (error) {
+        res.status(500).json({message: "Error al eliminar la patente"})
+    }
+  }
