@@ -13,8 +13,8 @@ export const listPagares = async (req, res) => {
 };
 
 export const getPagareById = async (req, res) => {
-  const { id } = req.params;
   try {
+    const { id } = req.params;
     const pagare = await Pagare.findById(id);
     if (!pagare) {
       return res.status(404).json({ message: 'Pagaré no encontrado' });
