@@ -1,7 +1,7 @@
 import apelacion from '../models/apelacion.model.js';
 import respuesta from '../models/respuesta.model.js';
 import { apelacionBodySchema } from '../schema/apelacion.schema.js';
-import { updateApelacionBodySchema } from '../schema/updateapelacion.schema.js';
+import { updateApelacionBodySchema } from '../schema/updateApelacion.schema.js';
 
 export const crearApelacion = async (req, res) => {
   try {
