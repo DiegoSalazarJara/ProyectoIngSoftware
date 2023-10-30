@@ -8,14 +8,13 @@ const router = express.Router();
 
 router.use(authenticationMiddleware);
 
-//patente admin
+
 router.get('/', authorizationMiddleware.isAdmin, getPatente);
 router.post('/:postulacionId',authorizationMiddleware.isAdmin, postPatente);
 router.delete('/:patenteId', authorizationMiddleware.isAdmin, deletePatente);
 
-//patente postulante
 router.get('/:numPatente', authorizationMiddleware.isPostulante, getPatenteId);
-router.get('/cancelar/:numPatente', patenteCancelar)
-router.get('/renovar/:numPatente', patenteRenovar)
+router.get('/cancelar/:numPatente', authorizationMiddleware.isPostulante, patenteCancelar)
+router.get('/renovar/:numPatente', authorizationMiddleware.isPostulante, patenteRenovar)
 
 export default router;
