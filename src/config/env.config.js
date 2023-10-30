@@ -16,6 +16,9 @@ dotenv.config({ path: envFilePath });
 //Puerto del servidor
 export const PORT = process.env.PORT;
 
+//Clave de la API de SendGrid
+export const API_KEY = process.env.API_KEY;
+
 //Host del servidor
 export const HOST = process.env.HOST;
 
