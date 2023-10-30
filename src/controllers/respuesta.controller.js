@@ -2,6 +2,7 @@ import Respuesta from '../models/respuesta.model.js';
 import Evaluador from '../models/evaluador.model.js';
 import Postulacion from '../models/postulacion.model.js';
 import sgMail from "@sendgrid/mail";
+import { API_KEY } from '../config/env.config.js';
 
 
 export const clasificarPostulacion = async (req, res) => {
@@ -36,7 +37,6 @@ export const clasificarPostulacion = async (req, res) => {
 
 
     if (evaluar === 'aprobado') {
-      const API_KEY = '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';
 sgMail.setApiKey(API_KEY);
 const msg = {
   to: postulacion.email,
@@ -54,7 +54,6 @@ sgMail
     console.error('Error al enviar el correo:', error);
   });
     }else{
-      const API_KEY = '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';
 sgMail.setApiKey(API_KEY);
 const msg = {
   to: postulacion.email,
