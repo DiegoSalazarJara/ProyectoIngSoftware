@@ -36,7 +36,7 @@ export const clasificarPostulacion = async (req, res) => {
 
 
     if (evaluar === 'aprobado') {
-      const API_KEY = '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';
+      const API_KEY = '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';
 sgMail.setApiKey(API_KEY);
 const msg = {
   to: postulacion.email,
@@ -54,7 +54,7 @@ sgMail
     console.error('Error al enviar el correo:', error);
   });
     }else{
-      const API_KEY = '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';
+      const API_KEY = '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';
 sgMail.setApiKey(API_KEY);
 const msg = {
   to: postulacion.email,
