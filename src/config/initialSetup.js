@@ -20,7 +20,6 @@ export async function createRoles() {
       new Role({ name: "admin" }).save(),
       new Role({ name: "postulante" }).save(),
       new Role({ name: "evaluador" }).save(),
-      new Role({ name: "secretaria" }).save(),
     ]);
     console.log("* => Roles creados exitosamente");
   } catch (error) {
@@ -34,6 +33,7 @@ export async function createRoles() {
  * @function createUsers
  * @returns {Promise<void>}
  */
+
 export async function createUsers() {
   try {
     const count = await User.estimatedDocumentCount();
@@ -41,7 +41,6 @@ export async function createUsers() {
 
     const admin = await Role.findOne({ name: "admin" });
     const postulante = await Role.findOne({ name: "postulante" });
-    const secretaria = await Role.findOne({ name: "secretaria" });
     const evaluador = await Role.findOne({ name: "evaluador" });
 
     await Promise.all([
@@ -56,12 +55,6 @@ export async function createUsers() {
         email: "postulantemunicipalidad@gmail.com",
         password: await User.encryptPassword("postulante123"),
         roles: postulante._id,
-      }).save(),
-      new User({
-        username: "secretaria",
-        email: "secretariamunicipalidad@gmail.com",
-        password: await User.encryptPassword("secretaria123"),
-        roles: secretaria._id,
       }).save(),
       new User({
         username: "Evaluador",
