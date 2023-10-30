@@ -7,18 +7,6 @@ export const listEvaluadores = async (req, res) => {
     const evaluadores = await Evaluador.find();
     res.json(evaluadores);
 
-    const requestBody = {
-      nombre: req.body.nombre,
-      apellido: req.body.apellido,
-      especialidad: req.body.especialidad,
-      correoElectronico: req.body.correoElectronico,
-      telefono: req.body.telefono,
-      postulacionAsignada: req.body.postulacionAsignada,
-      pagaresEmitidos: req.body.pagaresEmitidos,
-    };
-
-    const { error, value } = EvaluadorBodySchema.validate(requestBody);
-
   } catch (error) {
     res.status(500).json({ message: 'Error al listar los evaluadores', error });
   }
@@ -45,14 +33,7 @@ export const getEvaluadorById = async (req, res) => {
   }
 };
 
-export const getFormsAll = async (req, res) => {
-  try {
-      const postulacion = await Postulacion.find();
-      res.status(200).json(postulacion);
-  } catch (error) {
-      res.status(500).json({message: error.message});
-  }
-}
+
 
 // Crear un nuevo evaluador
 export const createEvaluador = async (req, res) => {
