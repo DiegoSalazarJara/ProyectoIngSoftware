@@ -19,7 +19,6 @@ export async function createRoles() {
     await Promise.all([
       new Role({ name: "admin" }).save(),
       new Role({ name: "postulante" }).save(),
-      new Role({ name: "evaluador general" }).save(),
       new Role({ name: "evaluador" }).save(),
       new Role({ name: "secretaria" }).save(),
     ]);
@@ -41,10 +40,8 @@ export async function createUsers() {
     if (count > 0) return;
 
     const admin = await Role.findOne({ name: "admin" });
-    const user = await Role.findOne({ name: "user" });
     const postulante = await Role.findOne({ name: "postulante" });
     const secretaria = await Role.findOne({ name: "secretaria" });
-    const evaluador_general = await Role.findOne({ name: "evaluador general" });
     const evaluador = await Role.findOne({ name: "evaluador" });
 
     await Promise.all([
@@ -55,26 +52,20 @@ export async function createUsers() {
         roles: admin._id,
       }).save(),
       new User({
-        username: "Diego Salazar Jara",
-        email: "dialsaljar@email.com",
-        password: await User.encryptPassword("didudo1234"),
+        username: "Postulante",
+        email: "postulantemunicipalidad@gmail.com",
+        password: await User.encryptPassword("postulante123"),
         roles: postulante._id,
       }).save(),
       new User({
         username: "secretaria",
-        email: "secretaria@email.com",
+        email: "secretariamunicipalidad@gmail.com",
         password: await User.encryptPassword("secretaria123"),
         roles: secretaria._id,
       }).save(),
       new User({
-        username: "Evaluador general",
-        email: "evgeneral@email.com",
-        password: await User.encryptPassword("evgeneral123"),
-        roles: evaluador_general._id,
-      }).save(),
-      new User({
         username: "Evaluador",
-        email: "evaluador@email.com",
+        email: "evaluadormunicipalidad@gmail.com",
         password: await User.encryptPassword("evaluador123"),
         roles: evaluador._id,
       }).save(),
