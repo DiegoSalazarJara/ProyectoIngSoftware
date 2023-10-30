@@ -14,7 +14,7 @@ router.post('/:postulacionId',authorizationMiddleware.isAdmin, postPatente);
 router.delete('/:patenteId', authorizationMiddleware.isAdmin, deletePatente);
 
 router.get('/:numPatente', authorizationMiddleware.isPostulante, getPatenteId);
-router.get('/cancelar/:numPatente', authorizationMiddleware.isPostulante, patenteCancelar)
-router.get('/renovar/:numPatente', authorizationMiddleware.isPostulante, patenteRenovar)
+router.post('/cancelar/:numPatente', authorizationMiddleware.isPostulante, patenteCancelar)
+router.post('/renovar/:numPatente', authorizationMiddleware.isPostulante, patenteRenovar)
 
 export default router;

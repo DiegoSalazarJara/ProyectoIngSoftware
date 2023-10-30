@@ -41,7 +41,7 @@ export const getPatenteId = async (req, res) => {
     }
 }
 
-//verificar si esta vencida o no vencida y ademas si el usuario quiere cancelarla
+
 export const patenteCancelar = async (req, res) => {
     try {
         const numPatente = req.params.numPatente;
@@ -65,7 +65,7 @@ export const patenteCancelar = async (req, res) => {
     }
 }
 
-//verificar si esta vencida o no vencida y ademas si el usuario quiere renovarla
+
 export const patenteRenovar = async (req, res) => {
     try {
         const newDateEmision = new Date();
