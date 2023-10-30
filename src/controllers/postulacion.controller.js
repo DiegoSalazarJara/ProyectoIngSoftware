@@ -1,13 +1,17 @@
+import { HOST, PORT } from '../config/env.config.js';
 import Postulacion from '../models/postulacion.model.js';
 import { formBodySchema } from '../schema/postulacion.schema.js';
 
+
 export const createForms = async (req, res) => {
     try {
+      const url = `${HOST}:${PORT}/api/postulacion/src/upload/`;
+      
       const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
       const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
       const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
       const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
-  
+
       const requestBody = {
         nombre: req.body.nombre,
         rutpostulante: req.body.rutpostulante,
@@ -16,11 +20,10 @@ export const createForms = async (req, res) => {
         rutempresa: req.body.rutempresa,
         direccionEmpresa: req.body.direccionEmpresa,
         tipoPatente: req.body.tipoPatente,
-        certificadoResidencia: certificadoResidencia,
-        certificadoConstitucion: certificadoConstitucion,
-        fotocopiaCarnet: fotocopiaCarnet,
-        certificadoArriendo: certificadoArriendo,
-        
+        certificadoResidencia: url+certificadoResidencia,
+        certificadoConstitucion: url+certificadoConstitucion,
+        fotocopiaCarnet: url+fotocopiaCarnet,
+        certificadoArriendo: url+certificadoArriendo,
       };
   
       const { error, value } = formBodySchema.validate(requestBody);
@@ -43,6 +46,7 @@ export const getForms = async (req, res) => {
     try {
         const rutpostulante = req.params.rutpostulante;
         const postulacion = await Postulacion.findOne({rutpostulante});
+        console.log(postulacion)
         if(!postulacion){
             return res.status(404).json({message: 'Postulacion no encontrada'})
         }
@@ -52,53 +56,54 @@ export const getForms = async (req, res) => {
     }
 }
 
-
-//Revisar si tengo que borrar esto 
-export const getFormsAll = async (req, res) => {
+export const getArchives = async (req, res) => {
     try {
-        const postulacion = await Postulacion.find();
-        res.status(200).json(postulacion);
+      const filename = req.params.filename;
+      const file = `src/upload/${filename}`;
+    
+      res.download(file, (err) => {
+        if (err) {
+          console.error('Error al descargar el archivo:', err);
+          res.status(404).send('Archivo no encontrado');
+        }
+      });
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 }
 
-//Modificar tema de req.file.path para los archivos
 export const updateForm = async (req, res) => {
-    try {
+  try {
+
+    const url = `${HOST}:${PORT}/api/postulacion/src/upload/`;
+      
       const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
       const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
       const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
       const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
-  
-      const updatedPostulacion = await Postulacion.findByIdAndUpdate(
-        req.params.id,
-        {
-          $set: {
-            nombre: req.body.nombre,
-            rutpostulante: req.body.rutpostulante,
-            nombreEmpresa: req.body.nombreEmpresa,
-            rutempresa: req.body.rutempresa,
-            direccionEmpresa: req.body.direccionEmpresa,
-            tipoPatente: req.body.tipoPatente,
-            certificadoResidencia: certificadoResidencia,
-            certificadoConstitucion: certificadoConstitucion,
-            fotocopiaCarnet: fotocopiaCarnet,
-            certificadoArriendo: certificadoArriendo,
-          },
-        },
-        { new: true }
-      );
-  
-      if (!updatedPostulacion) {
-        return res.status(404).json({ message: 'Postulacion no encontrada' });
-      }
-  
-      res.status(200).json(updatedPostulacion);
-    } catch (error) {
-      res.status(400).json({ message: 'Error al actualizar la postulacion' });
-    }
-  };
+
+    const {id} = req.params;
+    const formUpdated = await
+    Postulacion.findByIdAndUpdate(id, {
+      nombre: req.body.nombre,
+      rutpostulante: req.body.rutpostulante,
+      email: req.body.email,
+      nombreEmpresa: req.body.nombreEmpresa,
+      rutempresa: req.body.rutempresa,
+      direccionEmpresa: req.body.direccionEmpresa,
+      tipoPatente: req.body.tipoPatente,
+      certificadoResidencia: url+certificadoResidencia,
+      certificadoConstitucion: url+certificadoConstitucion,
+      fotocopiaCarnet: url+fotocopiaCarnet,
+      certificadoArriendo: url+certificadoArriendo,
+    }, {
+      new: true
+    })
+    res.status(200).json(formUpdated);
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar la postulacion" });
+  }
+};
 
 export const deleteForm = async (req, res) => {
     try {
