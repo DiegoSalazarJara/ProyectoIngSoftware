@@ -1,5 +1,4 @@
 "use strict";
-// Autorizacion - Comprobar el rol del usuario
 import User from '../models/user.model.js';
 import Role from '../models/role.model.js';
 import { respondError } from '../utils/resHandler.js';
@@ -74,27 +73,6 @@ async function isSecretaria(req, res, next) {
   }
 }
 
-async function isEvaluadorGeneral(req, res, next) {
-  try {
-    const user = await User.findOne({ email: req.email });
-    const roles = await Role.find({ _id: { $in: user.roles } });
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "evaluador general") {
-        next();
-        return;
-      }
-    }
-    return respondError(
-      req,
-      res,
-      401,
-      "Se requiere un rol de evaluador general para realizar esta acción",
-    );
-  } catch (error) {
-    handleError(error, "authorization.middleware -> isEvaluadorGeneral");
-  }
-}
-
 async function isEvaluador(req, res, next) {
   try {
     const user = await User.findOne({ email: req.email });
@@ -116,4 +94,4 @@ async function isEvaluador(req, res, next) {
   }
 }
 
-export default {isAdmin, isPostulante, isEvaluador, isEvaluadorGeneral, isSecretaria};
+export default {isAdmin, isPostulante, isEvaluador, isSecretaria};
