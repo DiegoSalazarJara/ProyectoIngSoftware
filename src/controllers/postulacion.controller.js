@@ -1,6 +1,6 @@
 import { HOST, PORT } from '../config/env.config.js';
 import Postulacion from '../models/postulacion.model.js';
-import { formBodySchema } from '../schema/postulacion.schema.js';
+import { formBodySchema, formUpdateBodySchema } from '../schema/postulacion.schema.js';
 
 
 export const createForms = async (req, res) => {
@@ -83,15 +83,20 @@ export const updateForm = async (req, res) => {
       const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
 
     const {id} = req.params;
+    const { error, value } = formUpdateBodySchema.validate(req.body);
+      if (error) {
+        res.status(400).json({ message: error.message });
+        return;
+      }
     const formUpdated = await
     Postulacion.findByIdAndUpdate(id, {
-      nombre: req.body.nombre,
-      rutpostulante: req.body.rutpostulante,
-      email: req.body.email,
-      nombreEmpresa: req.body.nombreEmpresa,
-      rutempresa: req.body.rutempresa,
-      direccionEmpresa: req.body.direccionEmpresa,
-      tipoPatente: req.body.tipoPatente,
+      nombre: value.nombre,
+      rutpostulante: value.rutpostulante,
+      email: value.email,
+      nombreEmpresa: value.nombreEmpresa,
+      rutempresa: value.rutempresa,
+      direccionEmpresa: value.direccionEmpresa,
+      tipoPatente: value.tipoPatente,
       certificadoResidencia: url+certificadoResidencia,
       certificadoConstitucion: url+certificadoConstitucion,
       fotocopiaCarnet: url+fotocopiaCarnet,
