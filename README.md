@@ -3,4 +3,4 @@
 - Joaquín Pérez
 - Pablo Castillo
 - Magdiel Araneda
-- Diego Salazar
+- Diego Salazar# ACT_Ing_Software
