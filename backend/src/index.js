@@ -27,7 +27,7 @@ async function setupServer() {
     // Agrega el middleware para el manejo de datos en formato JSON
     app.use(express.json());
     // Agregamos los cors
-    app.use(cors({ origin: "/" }));
+    app.use(cors({ credentials: true, origin: true }));
     // Agregamos el middleware para el manejo de cookies
     app.use(cookieParser());
     // Agregamos morgan para ver las peticiones que se hacen al servidor

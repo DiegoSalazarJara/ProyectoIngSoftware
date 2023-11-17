@@ -1,39 +1,24 @@
-import Patente from '../models/patente.model.js';
 import patenteUser from '../models/patenteUser.model.js'
 
 
 export const getPatenteId = async (req, res) => {
     try {
         const dateActual = new Date();
-        const patente = await Patente.findOne({numPatente: req.params.numPatente});
+        const patente = await patenteUser.findOne({numPatente: req.params.numPatente});
         if(!patente){
             return res.status(404).json({message: 'Patente no encontrada'})
         }
 
         if(patente.fechaVencimiento >= dateActual){ // fechaVencimiento = 2023-10-24 dateActual = 2023-10-25
-            const newPatente = new patenteUser({
-                nombreEmpresa : patente.nombreEmpresa,
-                numPatente: patente.numPatente,
-                tipoPatente: patente.tipoPatente,
-                fechaEmision: patente.fechaEmision,
-                fechaVencimiento: patente.fechaVencimiento,
-                valor: patente.valor,
-                estado: "no vencida"
-                }) 
-                const patenteSaved = await newPatente.save();
+                patente.estado = "no vencida"
+                const Patente = new patenteUser(patente);
+                const patenteSaved = await Patente.save();
                 res.status(200).json(patenteSaved);
         }
         if(dateActual > patente.fechaVencimiento){ // fechaVencimiento = 2023-10-24 dateActual = 2023-10-25
-            const newPatente = new patenteUser({
-                nombreEmpresa : patente.nombreEmpresa,
-                numPatente: patente.numPatente,
-                tipoPatente: patente.tipoPatente,
-                fechaEmision: patente.fechaEmision,
-                fechaVencimiento: patente.fechaVencimiento,
-                valor: patente.valor,
-                estado: "vencida"
-                }) 
-                const patenteSaved = await newPatente.save();
+                patente.estado = "vencida"
+                const Patente = new patenteUser(patente);
+                const patenteSaved = await Patente.save();
                 res.status(200).json(patenteSaved);
         }
     } catch (error) {

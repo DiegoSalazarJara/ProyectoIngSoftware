@@ -27,13 +27,14 @@ const patenteUserSchema = new Schema({
         type: Number,
         required: true
     },
+    direccionEmpresa: {
+        type: String
+    },
     estado: {
         type: String,
-        required: true,
         enum: ['vencida', 'no vencida', 'patente cancelada'],
         set: (value) => value.toLowerCase(),
       },
-    
 });
 
 export default model('patenteUser', patenteUserSchema);

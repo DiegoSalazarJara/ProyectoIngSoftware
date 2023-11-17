@@ -1,4 +1,4 @@
-import Patente from '../models/patente.model.js';
+import patenteUser from '../models/patenteUser.model.js';
 import Postulacion from '../models/postulacion.model.js';
 import crypto from 'crypto'
 
@@ -37,7 +37,7 @@ export const postPatente = async (req, res) => {
     const fechaVencimiento = new Date();
     fechaVencimiento.setFullYear(fechaVencimiento.getFullYear() + 1);
 
-    const newPatente = new Patente({
+    const newPatente = new patenteUser({
       valor: 2500000,
       nombreEmpresa: postulacion.nombreEmpresa,
       fechaEmision: fechaEmision,
@@ -55,7 +55,7 @@ export const postPatente = async (req, res) => {
       const fechaVencimiento = new Date();
       fechaVencimiento.setFullYear(fechaVencimiento.getFullYear() + 1);
     
-      const newPatente = new Patente({
+      const newPatente = new patenteUser({
         valor: 1000000,
         nombreEmpresa: postulacion.nombreEmpresa,
         fechaEmision: fechaEmision,
@@ -74,7 +74,7 @@ export const postPatente = async (req, res) => {
   
 export const getPatente = async (req, res) => {
     try {
-        const patente = await Patente.find();
+        const patente = await patenteUser.find();
         res.status(200).json(patente)
     } catch (error) {
         res.status(500).json({message: error.message})
@@ -83,7 +83,7 @@ export const getPatente = async (req, res) => {
 
 export const deletePatente = async (req, res) => {
   try {
-    const patente = await Patente.findById(req.params.patenteId);
+    const patente = await patenteUser.findById(req.params.patenteId);
       if(!patente){
           return res.status(404).json({message: 'patente no encontrada'});
       }
