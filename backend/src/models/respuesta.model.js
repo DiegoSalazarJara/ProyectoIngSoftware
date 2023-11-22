@@ -29,6 +29,12 @@ const respuestaSchema = new Schema({
       message: 'La longitud del parametro evaluar no es válida.'
     }
   },
+  mensaje: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 500,
+  },
 });
 
 export default model('Respuesta', respuestaSchema);

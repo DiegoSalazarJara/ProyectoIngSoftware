@@ -7,7 +7,7 @@ import { API_KEY } from '../config/env.config.js';
 
 export const clasificarPostulacion = async (req, res) => {
   try {
-    const { evaluadorId, postulacionId, evaluar } = req.body;
+    const { evaluadorId, postulacionId, evaluar, mensaje } = req.body;
 
     const postulacion = await Postulacion.findById(postulacionId);
 
@@ -33,43 +33,45 @@ export const clasificarPostulacion = async (req, res) => {
       postulacion: postulacionId,
       evaluador: evaluadorId,
       evaluar: evaluar,
+      mensaje: mensaje,
     });
 
-
     if (evaluar === 'aprobado') {
-sgMail.setApiKey(API_KEY);
-const msg = {
-  to: postulacion.email,
-  from: "enviocorreomunicipalidad@gmail.com",
-  subject: "Respuesta de postulación",
-  text: "Comunicado", 
-  html: "<strong>Hola, su postulacion ha sido aprobada. </strong>",
-};
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Correo enviado');
-  })
-  .catch((error) => {
-    console.error('Error al enviar el correo:', error);
-  });
-    }else{
-sgMail.setApiKey(API_KEY);
-const msg = {
-  to: postulacion.email,
-  from: "enviocorreomunicipalidad@gmail.com",
-  subject: "Respuesta de postulación",
-  text: "Comunicado", 
-  html: "<strong>Hola, su postulacion ha sido rechazada debido a que no cumple con todos los requisitos. </strong>",
-};
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Correo enviado');
-  })
-  .catch((error) => {
-    console.error('Error al enviar el correo:', error);
-  });
+      sgMail.setApiKey(API_KEY);
+      const msg = {
+        to: postulacion.email,
+        from: "enviocorreomunicipalidad@gmail.com",
+        subject: "Respuesta de postulación",
+        text: "Comunicado", 
+        html: `<strong>${mensaje}</strong>`,
+      };
+
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Correo enviado');
+        })
+        .catch((error) => {
+          console.error('Error al enviar el correo:', error);
+        });
+    } else {
+      sgMail.setApiKey(API_KEY);
+      const msg = {
+        to: postulacion.email,
+        from: "enviocorreomunicipalidad@gmail.com",
+        subject: "Respuesta de postulación",
+        text: "Comunicado", 
+        html: `<strong>${mensaje}</strong>`,
+      };
+
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Correo enviado');
+        })
+        .catch((error) => {
+          console.error('Error al enviar el correo:', error);
+        });
     }
 
     const respuestaSave = await respuesta.save();
