@@ -1,21 +1,9 @@
+import 'tailwindcss/tailwind.css';
+import { login } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { login } from '../services/auth.service';
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+ function LoginForm() {
 
-/*
-FALTA VALIDAR EL TEMA DE QUE LA CONTRASEÑA NO SEA CORRECTA DAR UN
-MENSAJE DE ERROR (CONTREÑA INVALIDA)
-*/
-
-
-function LoginForm() {
   const navigate = useNavigate();
 
   const {
@@ -26,62 +14,75 @@ function LoginForm() {
 
   const onSubmit = (data) => {
     login(data).then(() => {
-        navigate('/');
+      navigate('/');
     });
   };
 
+/*
+Falta agregar una imagen pequeña creada por nosotros sobre municipalidad
+*/
+
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: '200px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Inicio Sesión!
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-        <TextField
-          margin="normal"
-          fullWidth
-          id="email"
-          label="Correo Electronico"
-          name="email"
-          {...register('email', {
-            required: 'El email es requerido',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: 'El email ingresado no es válido',
-            },
-          })}
-        />
-        {errors.email && <span style={{ color: 'red', fontWeight: 'bold', marginTop: '10px' }}>{errors.email.message}</span>}
-        <TextField
-          margin="normal"
-          fullWidth
-          name="password"
-          label="Contraseña"
-          type="password"
-          id="password"
-          {...register('password', { required: 'La contraseña es requerida' })}
-        />
-        {errors.password && <span style={{ color: 'red', fontWeight: 'bold', marginTop: '10px' }}>{errors.password.message}</span>}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Iniciar sesión
-          </Button>
-        </Box>
-      </Box>
-    </Container>
-);
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Inicio sesión
+          </h2>
+        </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Email
+              </label>
+              <div className="mt-2">
+                <input
+                  name="email"
+                  type="email"
+                  {...register('email', { required: true })}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Contraseña
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  name="password"
+                  type="password"
+                  {...register('password', { required: true })}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                 {errors.exampleRequired && <span>This field is required</span>}
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Ingresar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default LoginForm;
