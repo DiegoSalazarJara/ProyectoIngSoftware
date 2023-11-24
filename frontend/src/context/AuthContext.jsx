@@ -25,3 +25,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+export const user1 = JSON.parse(localStorage.getItem('user')) || '';
+
+

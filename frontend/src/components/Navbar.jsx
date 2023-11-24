@@ -3,25 +3,70 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import 'tailwindcss/tailwind.css';
 import { logout } from '../services/auth.service';
-
-const navigation = [
-  { name: 'Postular', href: 'postulacion', current: false },
-  { name: 'Mis Postulaciones', href: '#', current: false },
-  { name: 'Mi Patente', href: '#', current: false },
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-
-
-const handleLogout = () => {
-  logout();
-  navigate('/auth');
-};
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+
+  const { user } = useAuth();
+  const [navigation, setNavigation] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(user&&user.roles && user.roles.length > 0){
+      switch(user?.roles[0].name){
+        case 'admin': 
+        setNavigation(navAdmin);
+        break;
+
+        case'evaluador': 
+        setNavigation(navEvaluador);
+        break;
+
+        case'postulante': 
+        setNavigation(navPostulante);
+        break;
+        default:
+          setNavigation(null);
+      }
+    }else{
+      setNavigation(null);
+    }
+  }, [user, user?.roles]);
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+  
+
+  const handleLogout = () => {
+    logout();
+    navigate('/auth');
+  };
+
+  const navPostulante = [
+    { name: 'Ejemplo postulante 1', href: 'postulacion', current: false },
+    { name: 'Ejemplo postulante 2', href: '#', current: false },
+    { name: 'Ejemplo postulante 3', href: '#', current: false },
+  ]
+  
+  const navAdmin = [
+    { name: 'Ejemplo admin 1', href: '', current: false },
+    { name: 'Ejemplo admin 2', href: '#', current: false },
+    { name: 'Ejemplo admin 3', href: '#', current: false },
+  ]
+  
+  const navEvaluador = [
+    { name: 'Ejemplo evaluador 1', href: '', current: false },
+    { name: 'Ejemplo evaluador 2', href: '#', current: false },
+    { name: 'Ejemplo evaluador 3', href: '#', current: false },
+  ]
+
+
+
+
+
   return (
     <Disclosure as="nav" className="bg-azul">
       {({ open }) => (
@@ -46,7 +91,7 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-2">
-                    {navigation.map((item) => (
+                    {navigation && navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -55,9 +100,6 @@ export default function Navbar() {
                           'rounded-md px-4 py-2 text-sm font-medium '
                         )}
                         aria-current={item.current ? 'page' : undefined}
-                          
-                          
-                        
                       >
                         {item.name}
                       </a>
@@ -117,7 +159,7 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {navigation && navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
@@ -135,6 +177,7 @@ export default function Navbar() {
           </Disclosure.Panel>
         </>
       )}
+      
     </Disclosure>
   )
 }
