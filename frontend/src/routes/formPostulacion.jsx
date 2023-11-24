@@ -1,10 +1,7 @@
-import Formulario from '../components/PostulacionForm.jsx'
+import Formulario from '../components/FormPostulacion.jsx'
 export default function FormularioPostulante() {
   return (
     <>
-    <h1>
-      Formulario para postular
-    </h1>
     <Formulario/>
     </>
   );
