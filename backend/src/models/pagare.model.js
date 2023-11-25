@@ -12,8 +12,9 @@ const pagareSchema = new Schema({
     ref: 'Postulacion',
     required: true,
   },
-  monto: {
-    type: String,
+  patente: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'patenteUser',
     required: true,
   },
   evaluadorAsignado: {
@@ -32,6 +33,9 @@ const pagareSchema = new Schema({
   timestamps: {
     createdAt: 'fechaCreacion',
   },
+});
+pagareSchema.virtual('monto').get(function () {
+  return this.patente ? this.patente.valor : 0;
 });
 
 const Pagare = model('Pagare', pagareSchema);
