@@ -8,17 +8,17 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 
-router.post('/', authorizationMiddleware.isEvaluador, createEvaluador);
+router.post('/', authorizationMiddleware.isAdmin, createEvaluador);
 
 // Obtener todos los pagarés
-router.get('/', authorizationMiddleware.isEvaluador, listEvaluadores);
+router.get('/', authorizationMiddleware.isAdmin, listEvaluadores);
 
 // Obtener un pagaré por su ID
-router.get('/:id', authorizationMiddleware.isEvaluador, getEvaluadorById);
+router.get('/:id', authorizationMiddleware.isAdmin, getEvaluadorById);
 
-router.put('/:id', authorizationMiddleware.isEvaluador, updateEvaluador);
+router.put('/:id', authorizationMiddleware.isAdmin, updateEvaluador);
 
 // Eliminar un pagaré por su ID
-router.delete('/:id', authorizationMiddleware.isEvaluador, deleteEvaluador);
+router.delete('/:id', authorizationMiddleware.isAdmin, deleteEvaluador);
 
 export default router;
