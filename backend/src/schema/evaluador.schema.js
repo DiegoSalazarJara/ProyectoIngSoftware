@@ -20,12 +20,13 @@ const evaluadorSchema = Joi.object({
       "string.max": "El apellido no debe tener más de {20} caracteres.",
       "string.pattern.base": "El apellido puede contener solo letras y guión (-).",
     }),
-  especialidad: Joi.string().label('especialidad').min(3).max(30).required().messages({
-    "string.empty": "La especialidad no puede estar vacía.",
-    "any.required": "La especialidad es obligatoria.",
-    "string.base": "La especialidad debe ser de tipo string.",
-    "string.min": "La especialidad debe tener al menos {3} caracteres.",
-    "string.max": "La especialidad no debe tener más de {30} caracteres.",
+    especialidad: Joi.string().label('especialidad').min(3).max(30).regex(/^[a-zA-Z\s]+$/).required().messages({
+      "string.empty": "La especialidad no puede estar vacía.",
+      "any.required": "La especialidad es obligatoria.",
+      "string.base": "La especialidad debe ser de tipo string.",
+      "string.min": "La especialidad debe tener al menos {3} caracteres.",
+      "string.max": "La especialidad no debe tener más de {30} caracteres.",
+      "string.pattern.base": "La especialidad solo puede contener letras del alfabeto y espacios.",
   }),
   email: Joi.string().label('email').required().email().pattern(new RegExp("^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]+$"))
   .messages({
