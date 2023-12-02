@@ -47,7 +47,7 @@ export const postPatente = async (req, res) => {
       direccionEmpresa: postulacion.direccionEmpresa
     })
     const patenteSaved = await newPatente.save();
-    res.status(200).json(patenteSaved);
+    res.status(201).json(patenteSaved);
   }
     if (typePatente == 'comercial') {
       
@@ -65,7 +65,7 @@ export const postPatente = async (req, res) => {
         direccionEmpresa: postulacion.direccionEmpresa
       })
       const patenteSaved = await newPatente.save();
-      res.status(200).json(patenteSaved);
+      res.status(201).json(patenteSaved);
     } 
   } catch (error) {
     res.status(500).json({ message: error.message });
