@@ -1,6 +1,6 @@
 import { HOST, PORT } from '../config/env.config.js';
 import Postulacion from '../models/postulacion.model.js';
-import { formBodySchema, formUpdateBodySchema } from '../schema/postulacion.schema.js';
+import { formBodySchema, formUpdateBodySchema, rutParamsSchema, fileParamsSchema, idParamsSchema } from '../schema/postulacion.schema.js';
 
 
 export const createForms = async (req, res) => {
@@ -42,25 +42,38 @@ export const createForms = async (req, res) => {
     }
   };
 
-export const getForms = async (req, res) => {
+  export const getForms = async (req, res) => {
     try {
-        const rutpostulante = req.params.rutpostulante;
-        const postulacion = await Postulacion.findOne({rutpostulante});
-        console.log(postulacion)
-        if(!postulacion){
-            return res.status(404).json({message: 'Postulacion no encontrada'})
-        }
-        res.status(200).json(postulacion);
+      const rutpostulante = req.params.rutpostulante;
+      const { error, value } = rutParamsSchema.validate({ rutpostulante });
+  
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
+      const postulacion = await Postulacion.findOne({ rutpostulante: value.rutpostulante });
+  
+      if (!postulacion) {
+        return res.status(404).json({ message: 'Postulacion no encontrada' });
+      }
+  
+      res.status(200).json(postulacion);
     } catch (error) {
-        res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
     }
-}
+  };
+  
 
-export const getArchives = async (req, res) => {
+  export const getArchives = async (req, res) => {
     try {
-      const filename = req.params.filename;
+      const { error, value } = fileParamsSchema.validate({ filename: req.params.filename });
+  
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
+  
+      const filename = value.filename;
       const file = `src/upload/${filename}`;
-    
+  
       res.download(file, (err) => {
         if (err) {
           console.error('Error al descargar el archivo:', err);
@@ -68,28 +81,35 @@ export const getArchives = async (req, res) => {
         }
       });
     } catch (error) {
-        res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
     }
-}
+  };
+  
 
 export const updateForm = async (req, res) => {
   try {
 
     const url = `${HOST}:${PORT}/api/postulacion/src/upload/`;
       
-      const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
-      const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
-      const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
-      const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
+    const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
+    const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
+    const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
+    const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
 
-    const {id} = req.params;
+    const { id } = req.params;
+    const { error: idError, value: idValue } = idParamsSchema.validate({ id });
+  
+    if (idError) {
+      res.status(400).json({ message: idError.message });
+      return;
+    }
     const { error, value } = formUpdateBodySchema.validate(req.body);
       if (error) {
         res.status(400).json({ message: error.message });
         return;
       }
     const formUpdated = await
-    Postulacion.findByIdAndUpdate(id, {
+    Postulacion.findByIdAndUpdate(idValue.id, {
       nombre: value.nombre,
       rutpostulante: value.rutpostulante,
       email: value.email,
@@ -111,14 +131,23 @@ export const updateForm = async (req, res) => {
 };
 
 export const deleteForm = async (req, res) => {
-    try {
-        const postulacion = await Postulacion.findById(req.params.id);
-        if(!postulacion){
-            return res.status(404).json({message: 'Postulacion no encontrada'});
-        }
-        await postulacion.deleteOne();
-        res.status(200).json({message: 'Postulacion eliminada'})
-    } catch (error) {
-        res.status(500).json({message: "Error al eliminar la postulacion"})
+  try {
+    const { error, value } = idParamsSchema.validate({ id: req.params.id });
+
+    if (error) {
+      res.status(400).json({ message: error.message });
+      return;
     }
-}
+
+    const postulacion = await Postulacion.findById(value.id);
+
+    if (!postulacion) {
+      return res.status(404).json({ message: 'Postulacion no encontrada' });
+    }
+
+    await postulacion.deleteOne();
+    res.status(200).json({ message: 'Postulacion eliminada' });
+  } catch (error) {
+    res.status(500).json({ message: "Error al eliminar la postulacion" });
+  }
+};
