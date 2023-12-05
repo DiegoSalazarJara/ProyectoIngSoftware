@@ -52,7 +52,6 @@ export const createForms = async (req, res) => {
       const postulacion = await Postulacion.findOne({
          rutpostulante: value.rutpostulante,
         });
-        console.log(postulacion)
   
       if(postulacion.deleted === true){
         return res.status(404).json({ message: 'Postulacion no encontrada' });
