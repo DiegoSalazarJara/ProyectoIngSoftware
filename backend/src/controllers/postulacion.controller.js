@@ -99,6 +99,8 @@ export const updateForm = async (req, res) => {
     const { id } = req.params;
     const { error: idError, value: idValue } = idParamsSchema.validate({ id });
   
+    //falta validar en caso de que la postulacion sea deleted: true
+
     if (idError) {
       res.status(400).json({ message: idError.message });
       return;
@@ -144,22 +146,11 @@ export const deleteForm = async (req, res) => {
     if (!postulacion) {
       return res.status(404).json({ message: 'Postulacion no encontrada' });
     }
-    const formDeleted = await
-    Postulacion.findByIdAndUpdate(value.id,{$set: {deleted:true}}, {
-      nombre: value.nombre,
-      rutpostulante: value.rutpostulante,
-      email: value.email,
-      nombreEmpresa: value.nombreEmpresa,
-      rutempresa: value.rutempresa,
-      direccionEmpresa: value.direccionEmpresa,
-      tipoPatente: value.tipoPatente,
-      certificadoResidencia: value.certificadoResidencia,
-      certificadoConstitucion: value.certificadoConstitucion,
-      fotocopiaCarnet: value.fotocopiaCarnet,
-      certificadoArriendo: value.certificadoArriendo,
-    }, {
-      new: true
-    })
+    const formDeleted = await Postulacion.findByIdAndUpdate(
+      value.id,
+      { $set: { deleted: true } },
+      { new: true }
+    );
     res.status(200).json(formDeleted);
   } catch (error) {
     res.status(500).json({ message: "Error al eliminar la postulacion" });
