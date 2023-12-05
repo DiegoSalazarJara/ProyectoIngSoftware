@@ -152,12 +152,13 @@ export const formUpdateBodySchema = Joi.object({
 })
 
 export const rutParamsSchema = Joi.object({
-  rutpostulante: Joi.string().label('rutpostulante').required().min(10).pattern(/^[0-9]+-[0-9kK]{1}$/)
+  rutpostulante: Joi.string().label('rutpostulante').required().min(9).max(10).pattern(/^[0-9]+[-|‐]{1}[0-9kK]{1}$/)
   .messages({
     "string.empty": "El rut del postulante no puede estar vacío.",
     "any.required": "El rut del postulante es obligatorio.",
     "string.base": "El rut del postulante debe ser de tipo string.",
-    "string.min": "El rut del postulante debe tener al menos 10 caracteres.",
+    "string.min": "El rut del postulante debe tener al menos 9 caracteres.",
+    "string.max": "El rut del postulante debe tener al menos 10 caracteres.",
     "string.pattern.base": "El rut del postulante tiene el formato XXXXXXXX-X, ejemplo: 12345678-9.",
   }),
 })

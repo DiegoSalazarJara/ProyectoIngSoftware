@@ -91,6 +91,10 @@ const postulacionSchema = new Schema({
             message: 'El certificado de arriendo debe ser un archivo PDF'
         }
     },
+    deleted: {
+      type: Boolean,
+      default: false
+    }
 },
     {
     timestamps: {
