@@ -112,7 +112,7 @@ export const updateForm = async (req, res) => {
       }
 
       const existingPostulacion = await Postulacion.findById(idValue.id);
-      console.log(existingPostulacion.deleted)
+      
     if (!existingPostulacion || existingPostulacion.deleted === true) {
       res.status(404).json({ message: 'Postulacion no encontrada' });
       return;
