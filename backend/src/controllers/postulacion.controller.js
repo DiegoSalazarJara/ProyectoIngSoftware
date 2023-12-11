@@ -110,6 +110,14 @@ export const updateForm = async (req, res) => {
         res.status(400).json({ message: error.message });
         return;
       }
+
+      const existingPostulacion = await Postulacion.findById(idValue.id);
+      console.log(existingPostulacion.deleted)
+    if (!existingPostulacion || existingPostulacion.deleted === true) {
+      res.status(404).json({ message: 'Postulacion no encontrada' });
+      return;
+    }
+
     const formUpdated = await
     Postulacion.findByIdAndUpdate(idValue.id, {
       nombre: value.nombre,
