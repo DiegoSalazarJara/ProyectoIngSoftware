@@ -16,6 +16,7 @@ export const crearApelacion = async (req, res) => {
       respuesta: respuestaId,
       nombre: req.body.nombre,
       rutpostulante: req.body.rutpostulante,
+      email: req.body.email,
       rutempresa: req.body.rutempresa,
       nombreEmpresa: req.body.nombreEmpresa,
       direccion: req.body.direccion,

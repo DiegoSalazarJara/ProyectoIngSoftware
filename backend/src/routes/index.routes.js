@@ -9,7 +9,8 @@ import authenticationMiddleware from '../middlewares/authentication.middleware.j
 import apelacionRoutes from './apelacion.routes.js';
 import evaluadorRoutes from './evaluador.routes.js';
 import respuestaRoutes from './respuesta.routes.js';
-import pagareRoutes from './pagare.routes.js'
+import pagareRoutes from './pagare.routes.js';
+import resApelacionRoutes from './resApelacion.routes.js';
 
 
 //Instancia del enrutador
@@ -31,6 +32,9 @@ router.use('/pagare', pagareRoutes)
 
 //Define la ruta para la apelacion /api/apelacion
 router.use('/apelacion', authenticationMiddleware, apelacionRoutes);
+
+//Define la ruta para la resApleacion /api/resApelacion
+router.use('/resApelacion', authenticationMiddleware, resApelacionRoutes);
 
 //Define la ruta para el resultado /api/evaluador
 router.use('/evaluador', evaluadorRoutes);

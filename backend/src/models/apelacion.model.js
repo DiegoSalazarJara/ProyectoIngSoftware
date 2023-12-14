@@ -19,6 +19,12 @@ const apelacionSchema = new Schema({
             unique: true,
         },
 
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+
         nombreEmpresa: {
             type: String,
             required: true,

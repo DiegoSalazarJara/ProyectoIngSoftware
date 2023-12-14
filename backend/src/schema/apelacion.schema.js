@@ -24,6 +24,13 @@ export const apelacionBodySchema = Joi.object({
         "string.base": "El rut del postulante debe ser de tipo string.",
         "string.pattern.base": "El rut del postulante debe tener un formato válido (ejemplo: 12345678-9), sin puntos y con guion."
       }),
+      email: Joi.string().label('email').required().email().pattern(new RegExp("^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]+$"))
+    .messages({
+      "string.empty": "El email no puede estar vacío.",
+      "any.required": "El email es obligatorio.",
+      "string.base": "El email debe ser de tipo string.",
+      "string.pattern.base": "El email debe tener un formato válido, ejemplo: example123@gmail.com.",
+    }),
       rutempresa: Joi.string().label('rutempresa').required().pattern(/^([3-9]\d{7}-[0-9kK])$/).messages({
         "string.empty": "El rut de la empresa no puede estar vacío.",
         "any.required": "El rut de la empresa es obligatorio.",
