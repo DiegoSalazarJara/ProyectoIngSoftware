@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from '../context/AuthContext';
-import Navbar from '../components/Navbar.jsx';
+import { AuthProvider} from '../context/AuthContext';
+import Navbar from '../components/Navbar';
 
 function Root() {
   return (
@@ -12,21 +11,10 @@ function Root() {
 }
 
 function PageRoot() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/auth');
-  };
-  
-  const { user } = useAuth();
 
   return (
     <div>
       <Navbar/>
-      <div>
-        <p>Estas logeado como: {user.email}</p>
-      </div>
       <Outlet />
     </div>
   );
