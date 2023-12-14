@@ -2,65 +2,80 @@ import { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 
 export default function TablePatente() {
-    
-const [isDisabled, setIsDisabled] = useState(); 
-const estado = "vencido"
-  const handlePagarClick = () => {
-    if(estado === "vencido"){
-        setIsDisabled(true);
-    }
-    if(estado==="no vencido"){
-        setIsDisabled(false);
-    }
 
-  }
+  
   return (
-    <div className="mx-auto max-w-sm">
-      <div className="px-4 sm:px-0">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">Patente</h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Información de la patente.</p>
-      </div>
-      <div className="mt-6 border-t border-gray-100">
-        <dl className="divide-y divide-gray-100">
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Nombre de empresa</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-2">Falabella14</dd>
+    <div className="max-w-4xl mx-auto p-4">
+      <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 bg-white p-8 rounded-lg shadow-md">
+        <div className="flex-1 space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold">Payment Information</h2>
+            <p>
+              <strong>Order ID:</strong> EYJHCHEU02
+            </p>
+            <p>
+              <strong>Date:</strong> 12/13/2023
+            </p>
+            <p>
+              <strong>Student Grade:</strong> GRADE 6
+            </p>
+            <p>
+              <strong>Course Name:</strong> Java
+            </p>
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Numero de la patente</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">C-732171386</dd>
+          <div>
+            <h2 className="text-2xl font-bold">Order Information</h2>
+            <p>
+              <strong>Order ID:</strong> EYJHCHEU02
+            </p>
+            <p>
+              <strong>Date:</strong> 12/13/2023
+            </p>
+            <p>
+              <strong>Student Grade:</strong> GRADE 6
+            </p>
+            <p>
+              <strong>Course Name:</strong> Java
+            </p>
+            <p>
+              <strong>Chapter:</strong> Chapter 1 - Java
+            </p>
+            <p>
+              <strong>Video Id:</strong> NbY8FJFPpSXbbDUmODD4
+            </p>
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Tipo de la patente</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">comercial</dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Fecha de emisión</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">2022-10-23</dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Fecha de vencimiento</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">2023-10-23</dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Valor</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">$1.000.000</dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Estado de la patente</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">no Vencida</dd>
-          </div>
-        <div className='px-14'>
-          <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          disabled={isDisabled}
-          onClick={handlePagarClick}
-        >
-          Save
-        </button>
         </div>
-        </dl>
+        <div className="flex-1 space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold">Amount: LKR 6,000</h2>
+            <p>
+              <strong>Total:</strong> LKR 6,000
+            </p>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+              Email address for getting access
+            </label>
+            <input
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              id="email"
+              placeholder="example@gmail.com"
+              type="email"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700" htmlFor="file-upload">
+              Upload Payment Slip
+            </label>
+            <input
+              className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              id="file-upload"
+              name="file-upload"
+              type="file"
+            />
+          </div>
+          
+        </div>
       </div>
     </div>
   )

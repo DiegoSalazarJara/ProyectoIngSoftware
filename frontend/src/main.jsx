@@ -21,10 +21,6 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Login />,
-  },
-  {
-    path: '/postulacion',
-    element: <Formulario/>
   }
 ]);
 

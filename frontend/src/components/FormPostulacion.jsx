@@ -1,42 +1,60 @@
 import 'tailwindcss/tailwind.css';
 import { PhotoIcon} from '@heroicons/react/24/solid'
 import { useForm } from "react-hook-form";
-
+import { createForms } from '../services/postulacion.service.js';
+import { useState } from 'react';
 export default function FormPostulante() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    reset,
-  } = useForm({
-    defaultValues: {
-      nombre: "",
-      rutpostulante: "",
-      email: "",
-      nombreEmpresa: "",
-      rutempresa: "",
-      direccionEmpresa: "",
-      tipoPatente: "",
-      certificadoResidencia: "",
-      certificadoConstitucion: "",
-      fotocopiaCarnet: "",
-      certificadoArriendo: ""
-    },
-  });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    reset();
-  });
+  const [certificadoResidencia, setCertificadoResidencia] = useState('');
+  const [certificadoConstitucion, setCertificadoConstitucion] = useState('');
+  const [fotocopiaCarnet, setFotocopiaCarnet] = useState('');
+  const [certificadoArriendo, setCertificadoArriendo] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
 
+  const {register,formState: { errors },handleSubmit,reset,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      setIsLoading(true);
+      console.log('Datos antes de la solicitud POST:', data);
+
+      const formData = new FormData();
+      formData.append("nombre", data.nombre);
+      formData.append("rutpostulante", data.rutpostulante);
+      formData.append("email", data.email);
+      formData.append("nombreEmpresa", data.nombreEmpresa);
+      formData.append("rutempresa", data.rutempresa);
+      formData.append("direccionEmpresa", data.direccionEmpresa);
+      formData.append("tipoPatente", data.tipoPatente);
+      formData.append("certificadoResidencia", certificadoResidencia);
+      formData.append("certificadoConstitucion", certificadoConstitucion);
+      formData.append("fotocopiaCarnet", fotocopiaCarnet);
+      formData.append("certificadoArriendo", certificadoArriendo);
+
+      createForms(formData);
+      reset();
+
+    } catch (err) {
+      console.log(err);
+    }finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
+    <div>
+       <header className="bg-white shadow">
+          <div className=" max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Postulación</h1>
+          </div>
+      </header>
     <div className="mt-10">
-    <form className="mx-auto max-w-sm" onSubmit={onSubmit}>
+    <form className="mx-auto max-w-sm" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
         <div>
-        <h2 className="text-base font-semibold leading-9 text-gray-900 text-center">Postulación</h2>
+        <h1 className="text-base font-semibold leading-9 text-gray-900 text-center">Formulario para postular</h1>
         </div>
 
         <div className="border-b border-gray-900/10 pb-8">
@@ -51,6 +69,7 @@ export default function FormPostulante() {
               name="nombre"
               id="nombre"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              onChange={(e) => setNombre(e.target.value)}
               {...register("nombre", {
                 required: {
                   value: true,
@@ -69,6 +88,7 @@ export default function FormPostulante() {
                   message: "Nombre solo puede contener letras y espacios",
                 },
               })}
+              
             />
               {errors.nombre && (
                 <span className="text-red-500 text-sm">{errors.nombre.message}</span>
@@ -85,6 +105,7 @@ export default function FormPostulante() {
               type="text" 
               name="rutpostulante"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              onChange={(e) => setRutPostulante(e.target.value)}
               {...register("rutpostulante", {
                 required: {
                   value: true,
@@ -111,6 +132,7 @@ export default function FormPostulante() {
                   name="email"
                   type="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) => setEmail(e.target.value)}
                   {...register("email", {
                     required: {
                       value: true,
@@ -138,6 +160,7 @@ export default function FormPostulante() {
                 name="nombreEmpresa"
                 type="text"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(e) => setNombreEmpresa(e.target.value)}
                 {...register("nombreEmpresa", {
                   required: {
                     value: true,
@@ -173,6 +196,7 @@ export default function FormPostulante() {
               name="rutempresa"
               type="text" 
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              onChange={(e) => setRutEmpresa(e.target.value)}
               {...register("rutempresa", {
                 required: {
                   value: true,
@@ -198,6 +222,7 @@ export default function FormPostulante() {
                   name="direccionEmpresa"
                   id="direccionEmpresa"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) => setDireccionEmpresa(e.target.value)}
                   {...register("direccionEmpresa", {
                     required: {
                       value: true,
@@ -232,6 +257,7 @@ export default function FormPostulante() {
             id="tipoPatente"
             name="tipoPatente"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            onChange={(e) => setTipoPatente(e.target.value)}
             {...register("tipoPatente", {
               required: "El tipo de patente es requerido",
               validate: (value) => {
@@ -259,16 +285,14 @@ export default function FormPostulante() {
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-            <label htmlFor="certificadoResidencia" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
+            <label htmlFor="certificadoResidencia" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
-            <input 
-            id="certificadoResidencia" 
-            name="certificadoResidencia" 
-            type="file" 
-            className="opacity-0 absolute left-[-9999px]"
-            onChange={(e) => {
-              setValue("certificadoResidencia", e.target.files[0].name);
-            }}
+            <input
+              id="certificadoResidencia"
+              name="certificadoResidencia"
+              type="file"
+              className="opacity-0 absolute left-[-9999px]"
+              onChange={(e) => setCertificadoResidencia(e.target.files[0])}
             />
             </label>
             </div>
@@ -286,17 +310,14 @@ export default function FormPostulante() {
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-            <label htmlFor="certificadoConstitucion" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
+            <label htmlFor="certificadoConstitucion" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
             id="certificadoConstitucion" 
             name="certificadoConstitucion" 
             type="file" 
             className="opacity-0 absolute left-[-9999px]" 
-            onChange={(e) => {
-              setValue("certificadoConstitucion", e.target.files[0].name);
-            }}
-            
+            onChange={(e) => setCertificadoConstitucion(e.target.files[0])}
             /> 
             </label>
             </div>
@@ -315,16 +336,14 @@ export default function FormPostulante() {
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-            <label htmlFor="fotocopiaCarnet" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
+            <label htmlFor="fotocopiaCarnet" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
             id="fotocopiaCarnet" 
             name="fotocopiaCarnet" 
             type="file" 
             className="opacity-0 absolute left-[-9999px]" 
-            onChange={(e) => {
-              setValue("fotocopiaCarnet", e.target.files[0].name);
-            }}
+            onChange={(e) => setFotocopiaCarnet(e.target.files[0])}
             /> 
             </label>
             </div>
@@ -342,16 +361,14 @@ export default function FormPostulante() {
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-            <label htmlFor="certificadoArriendo" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
+            <label htmlFor="certificadoArriendo" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
             id="certificadoArriendo" 
             name="certificadoArriendo" 
             type="file" 
             className="opacity-0 absolute left-[-9999px]" 
-            onChange={(e) => {
-              setValue("certificadoArriendo", e.target.files[0].name);
-            }}
+            onChange={(e) => setCertificadoArriendo(e.target.files[0])}
             />
             </label>
             </div>
@@ -365,12 +382,13 @@ export default function FormPostulante() {
       <div className="mt-6 flex items-center justify-center gap-x-6">
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-azul px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Save
+          {isLoading ? 'Enviando...' : 'Enviar'}
         </button>
       </div>
-    </form>
+      </form>
+    </div>
     </div>
   )
 }

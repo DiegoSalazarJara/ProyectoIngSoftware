@@ -52,15 +52,15 @@ export default function Navbar() {
   ]
   
   const navAdmin = [
-    { name: 'Ejemplo admin 1', href: '', current: false },
-    { name: 'Ejemplo admin 2', href: '#', current: false },
-    { name: 'Ejemplo admin 3', href: '#', current: false },
+    { name: 'Crear Evaluador', href: 'CrearEvaluador', current: false },
+    { name: 'Mostrar Evaluadores', href: 'VerEvaluadores', current: false },
+    { name: 'Eliminar un Evaluador', href: 'EliminarEvaluador', current: false },
   ]
   
   const navEvaluador = [
     { name: 'Emitir un pagare', href: 'pagare', current: false },
-    { name: 'Mostrar pagares', href: '#', current: false },
-    { name: 'Ejemplo evaluador 3', href: '#', current: false },
+    { name: 'Mostrar pagares', href: 'verpagares', current: false },
+    { name: 'Eliminar un pagare', href: 'eliminarpagare', current: false },
   ]
 
   

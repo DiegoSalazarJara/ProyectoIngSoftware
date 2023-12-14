@@ -9,6 +9,7 @@ export default {
         blanco:'#ECF0F1',
         azul:'#3498DB',
         rojo:'#E74C3C',
+        negro:'#000000'
       }
     },
   },
