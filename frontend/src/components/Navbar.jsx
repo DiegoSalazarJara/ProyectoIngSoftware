@@ -5,7 +5,7 @@ import 'tailwindcss/tailwind.css';
 import { logout } from '../services/auth.service';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 export default function Navbar() {
 
@@ -46,9 +46,9 @@ export default function Navbar() {
   };
 
   const navPostulante = [
-    { name: 'Ejemplo postulante 1', href: 'postulacion', current: false },
-    { name: 'Ejemplo postulante 2', href: '#', current: false },
-    { name: 'Ejemplo postulante 3', href: '#', current: false },
+    { id: 'id-postular' ,name: 'Postular', href: 'postulacion', current: false },
+    { id: 'id-postulaciones' ,name: 'Mi postulación', href: 'mipostulacion', current: false },
+    { id: 'id-patentes' ,name: 'Mi patente', href: 'patente', current: false },
   ]
   
   const navAdmin = [
@@ -58,21 +58,26 @@ export default function Navbar() {
   ]
   
   const navEvaluador = [
-    { name: 'Ejemplo evaluador 1', href: '', current: false },
-    { name: 'Ejemplo evaluador 2', href: '#', current: false },
+    { name: 'Emitir un pagare', href: 'pagare', current: false },
+    { name: 'Mostrar pagares', href: '#', current: false },
     { name: 'Ejemplo evaluador 3', href: '#', current: false },
   ]
 
-
-
-
-
+  
   return (
+    <>
     <Disclosure as="nav" className="bg-azul">
       {({ open }) => (
         <>
           <div className="flex- justify-end me-8">
-            <div className="relative flex h-16 items-center justify-between ">
+            <div className="ms-6 relative flex h-16 items-center">
+              
+            <a href="/" className="cursor-pointer ml-auto">
+            <svg  id='home-image' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clipRule="evenodd" className="text-white"/>
+            </svg>
+            </a>
+
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-blanco hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -90,9 +95,11 @@ export default function Navbar() {
                   
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
+                  
                   <div className="flex space-x-2">
                     {navigation && navigation.map((item) => (
                       <a
+                        id={item.id}
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -113,8 +120,9 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <img
+                        id='profile-image'
                         className="h-8 w-8 rounded-full"
-                        src="./src/images/foto perfil.webp"
+                        src="./src/images/profile.png"
                         alt=""
                       />
                     </Menu.Button>
@@ -132,6 +140,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
+                            id='profile-link'
                             href="#"
                             className={classNames(active ? 'bg-blanco' : '', 'block px-4 py-2 text-sm text-black')}
                           >
@@ -179,5 +188,6 @@ export default function Navbar() {
       )}
       
     </Disclosure>
+      </>
   )
 }
