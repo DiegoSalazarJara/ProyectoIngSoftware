@@ -5,6 +5,9 @@ import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import Formulario from './routes/formPostulacion.jsx';
+import Patente from './routes/Patente.jsx';
+import EmitirPagare from './routes/EmitirPagare.jsx';
+import CrearEvaluador from './routes/CrearEvaluador.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +18,22 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <App />,
+      },
+      {
+        path: '/postulacion',
+        element: <Formulario/>,
+      },
+      {
+        path: '/patente',
+        element: <Patente/>,
+      },
+      {
+        path: '/pagare',
+        element: <EmitirPagare/>,
+      },
+      {
+        path: '/CrearEvaluador',
+        element: <CrearEvaluador/>,
       },
     ],
   },
