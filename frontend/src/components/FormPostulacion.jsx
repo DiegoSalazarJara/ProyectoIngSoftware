@@ -3,6 +3,7 @@ import { PhotoIcon} from '@heroicons/react/24/solid'
 import { useForm } from "react-hook-form";
 import { createForms } from '../services/postulacion.service.js';
 import { useState } from 'react';
+import { showConfirmForm, showErrorForm } from '../helpers/swaHelper.js';
 export default function FormPostulante() {
 
   const [certificadoResidencia, setCertificadoResidencia] = useState('');
@@ -33,8 +34,15 @@ export default function FormPostulante() {
       formData.append("fotocopiaCarnet", fotocopiaCarnet);
       formData.append("certificadoArriendo", certificadoArriendo);
 
-      createForms(formData);
-      reset();
+      const response = await createForms(formData);
+      console.log(response)
+      
+      if (response.status === 201) {
+        await showConfirmForm();
+        reset();
+      } else if (response.status === 500) {
+        await showErrorForm();
+      }
 
     } catch (err) {
       console.log(err);
@@ -47,14 +55,14 @@ export default function FormPostulante() {
     <div>
        <header className="bg-white shadow">
           <div className=" max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Postulación</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Postulación para Patentes</h1>
           </div>
       </header>
     <div className="mt-10">
     <form className="mx-auto max-w-sm" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
         <div>
-        <h1 className="text-base font-semibold leading-9 text-gray-900 text-center">Formulario para postular</h1>
+        <h1 className="text-base font-semibold leading-9 text-gray-900 text-center">Formulario de postulación</h1>
         </div>
 
         <div className="border-b border-gray-900/10 pb-8">
@@ -66,6 +74,7 @@ export default function FormPostulante() {
               <div className="mt-2">
               <input
               type="text"
+              placeholder='Ej: Diego Alexis Salazar Jara'
               name="nombre"
               id="nombre"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -76,8 +85,8 @@ export default function FormPostulante() {
                   message: "Nombre completo es requerido",
                 },
                 maxLength: {
-                  value: 20,
-                  message: "Nombre debe tener máximo 20 caracteres",
+                  value: 30,
+                  message: "Nombre debe tener máximo 30 caracteres",
                 },
                 minLength: {
                   value: 2,
@@ -103,6 +112,7 @@ export default function FormPostulante() {
               <div className="mt-2">
               <input
               type="text" 
+              placeholder='Ej: 21308770-3'
               name="rutpostulante"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               onChange={(e) => setRutPostulante(e.target.value)}
@@ -129,6 +139,7 @@ export default function FormPostulante() {
               <div className="mt-2">
                 <input
                   id="email"
+                  placeholder='Ej: diego2023@gmail.com'
                   name="email"
                   type="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -157,6 +168,7 @@ export default function FormPostulante() {
             <div className="mt-2">
               <input
                 id="nombreEmpresa"
+                placeholder='Ej: EmpresaDiego'
                 name="nombreEmpresa"
                 type="text"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -193,6 +205,7 @@ export default function FormPostulante() {
               <div className="mt-2">
               <input
               id="rutempresa"
+              placeholder='Ej: 35448884-2'
               name="rutempresa"
               type="text" 
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -208,7 +221,7 @@ export default function FormPostulante() {
                 },
               })}
             />
-              <span className="text-red-500 text-sm">{errors.rut && errors.rut.message}</span>
+              <span className="text-red-500 text-sm">{errors.rutempresa && errors.rutempresa.message}</span>
               </div>
             </div>
 
@@ -219,6 +232,7 @@ export default function FormPostulante() {
               <div className="mt-2">
                 <input
                   type="text"
+                  placeholder='Ej: Los corales'
                   name="direccionEmpresa"
                   id="direccionEmpresa"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -379,7 +393,7 @@ export default function FormPostulante() {
         </div>  
 
 
-      <div className="mt-6 flex items-center justify-center gap-x-6">
+      <div className="mt-2 py-4 flex items-center justify-center gap-x-6">
         <button
           type="submit"
           className="rounded-md bg-azul px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
