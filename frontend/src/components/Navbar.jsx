@@ -59,8 +59,8 @@ export default function Navbar() {
   
   const navEvaluador = [
     { name: 'Emitir un pagare', href: 'pagare', current: false },
-    { name: 'Mostrar pagares', href: 'verpagares', current: false },
-    { name: 'Eliminar un pagare', href: 'eliminarpagare', current: false },
+    { name: 'Mostrar un pagare por ID', href: 'listpagare', current: false },
+    { name: 'Listar todos los pagarés', href: 'listarpagares', current: false },
   ]
 
   
