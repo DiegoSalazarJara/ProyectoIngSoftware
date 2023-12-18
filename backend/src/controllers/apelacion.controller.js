@@ -51,8 +51,22 @@ export const getApelacion = async (req, res) => {
   }
 };
 
+export const deleteApelacion = async (req, res) => {
+  try {
+    const rut = req.params.rutpostulante;
+    const apelar = await apelacion.findOne({ rut }); 
+    if (!apelar) {
+      return res.status(404).json({ message: "Apelación no encontrada" });
+    }
+    await apelacion.findOneAndDelete({ rut }); 
 
- export const deleteApelacion = async (req, res) => {
+    res.json({ message: 'Apelación eliminada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+ /*export const deleteApelacion = async (req, res) => {
     try {
       const apelacionId = req.params.id;
       const apelar = await apelacion.findById(apelacionId);
@@ -65,7 +79,7 @@ export const getApelacion = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  };
+  };*/
 
 
 export const updateApelacion = async (req, res) => {
