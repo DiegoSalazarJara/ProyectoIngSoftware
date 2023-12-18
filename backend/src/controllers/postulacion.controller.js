@@ -86,59 +86,66 @@ export const createForms = async (req, res) => {
   };
   
 
-export const updateForm = async (req, res) => {
-  try {
-
-    const url = `${HOST}:${PORT}/api/postulacion/src/upload/`;
-      
-    const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
-    const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
-    const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
-    const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
-
-    const { id } = req.params;
-    const { error: idError, value: idValue } = idParamsSchema.validate({ id });
+  export const updateForm = async (req, res) => {
+    try {
+      const url = `${HOST}:${PORT}/api/postulacion/src/upload/`;
   
-    //falta validar en caso de que la postulacion sea deleted: true
-
-    if (idError) {
-      res.status(400).json({ message: idError.message });
-      return;
-    }
-    const { error, value } = formUpdateBodySchema.validate(req.body);
-      if (error) {
-        res.status(400).json({ message: error.message });
-        return;
-      }
-
-      const existingPostulacion = await Postulacion.findById(idValue.id);
+      // Validar parámetro de ruta
+      const rutpostulante = req.params.rutpostulante;
+      const { error: rutError, value: rutValue } = rutParamsSchema.validate({ rutpostulante });
       
-    if (!existingPostulacion || existingPostulacion.deleted === true) {
-      res.status(404).json({ message: 'Postulacion no encontrada' });
-      return;
+      if (rutError) {
+        return res.status(400).json({ message: rutError.message });
+      }
+  
+      // Validar cuerpo de la solicitud
+      const { error, value } = formUpdateBodySchema.validate(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
+  
+      // Buscar postulación existente
+      const existingPostulacion = await Postulacion.findOne({
+        rutpostulante: rutValue.rutpostulante,
+      });
+  
+      if (!existingPostulacion || existingPostulacion.deleted === true) {
+        return res.status(404).json({ message: 'Postulacion no encontrada' });
+      }
+  
+      // Extraer nombres de archivo
+      const certificadoResidencia = req.files['certificadoResidencia'][0].filename;
+      const certificadoConstitucion = req.files['certificadoConstitucion'][0].filename;
+      const fotocopiaCarnet = req.files['fotocopiaCarnet'][0].filename;
+      const certificadoArriendo = req.files['certificadoArriendo'][0].filename;
+  
+      // Actualizar la entidad Postulacion
+      const formUpdated = await Postulacion.findOneAndUpdate(
+        { rutpostulante: rutValue.rutpostulante },
+        {
+          nombre: value.nombre,
+          rutpostulante: value.rutpostulante,
+          email: value.email,
+          nombreEmpresa: value.nombreEmpresa,
+          rutempresa: value.rutempresa,
+          direccionEmpresa: value.direccionEmpresa,
+          tipoPatente: value.tipoPatente,
+          certificadoResidencia: url + certificadoResidencia,
+          certificadoConstitucion: url + certificadoConstitucion,
+          fotocopiaCarnet: url + fotocopiaCarnet,
+          certificadoArriendo: url + certificadoArriendo,
+        },
+        { new: true }
+      );
+  
+      // Devolver la entidad actualizada
+      return res.status(200).json(formUpdated);
+    } catch (error) {
+      // Manejar errores
+      return res.status(500).json({ message: "Error al actualizar la postulacion" });
     }
-
-    const formUpdated = await
-    Postulacion.findByIdAndUpdate(idValue.id, {
-      nombre: value.nombre,
-      rutpostulante: value.rutpostulante,
-      email: value.email,
-      nombreEmpresa: value.nombreEmpresa,
-      rutempresa: value.rutempresa,
-      direccionEmpresa: value.direccionEmpresa,
-      tipoPatente: value.tipoPatente,
-      certificadoResidencia: url+certificadoResidencia,
-      certificadoConstitucion: url+certificadoConstitucion,
-      fotocopiaCarnet: url+fotocopiaCarnet,
-      certificadoArriendo: url+certificadoArriendo,
-    }, {
-      new: true
-    })
-    res.status(200).json(formUpdated);
-  } catch (error) {
-    res.status(500).json({ message: "Error al actualizar la postulacion" });
-  }
-};
+  };
+  
 
 export const deleteForm = async (req, res) => {
   try {

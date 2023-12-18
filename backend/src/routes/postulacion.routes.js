@@ -31,7 +31,7 @@ router.post(
     ]), authorizationMiddleware.isPostulante, createForms);
 
 router.put(
-    '/:id',jsonParser,upload.fields([
+    '/:rutpostulante',jsonParser,upload.fields([
       { name: 'certificadoResidencia', maxCount: 1 },
       { name: 'certificadoConstitucion', maxCount: 1 },
       { name: 'fotocopiaCarnet', maxCount: 1 },
