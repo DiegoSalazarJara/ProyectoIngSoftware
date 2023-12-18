@@ -9,6 +9,9 @@ import Patente from './routes/Patente.jsx';
 import EmitirPagare from './routes/EmitirPagare.jsx';
 import CrearEvaluador from './routes/CrearEvaluador.jsx';
 import ListPagar from './routes/listpagare.jsx';
+import FormularioPostulante from './routes/Postulacion.jsx';
+import CrearPatente from './routes/CrearPatente.jsx';
+import Patentes from './routes/Patentes.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -39,6 +42,18 @@ const router = createBrowserRouter([
         path: '/listPagare',
         element: <ListPagar/>,
       },
+      {
+        path: '/mipostulacion',
+        element: <FormularioPostulante/>,
+      },
+      {
+        path: '/crearpatente',
+        element: <CrearPatente/>,
+      },
+      {
+        path: '/patentes',
+        element: <Patentes/>,
+      },
     ],
   },
   {
@@ -50,3 +65,5 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
 );
+
+
