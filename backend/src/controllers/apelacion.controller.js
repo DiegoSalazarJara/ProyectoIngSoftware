@@ -94,3 +94,13 @@ export const updateApelacion = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getApelaciones = async (req, res) => {
+  try {
+    const apelaciones = await apelacion.find();
+    res.status(200).json(apelaciones);
+  } catch (error){
+    console.error('Error al obtener las apelaciones:', error);
+    res.status(500).json({ message: 'Error al obtener las apelaciones' });
+  }
+}

@@ -40,7 +40,7 @@ export const clasificarApelacion = async (req, res) => {
             const msg = {
                 to: apelacion.email,
                 from: "enviocorreomunicipalidad@gmail.com",
-                subject: "Respuesta de postulación",
+                subject: "Respuesta de apelación",
                 text: "Comunicado", 
                 html: `<strong>${mensaje}</strong>`,
             };
@@ -57,7 +57,7 @@ export const clasificarApelacion = async (req, res) => {
             const msg = {
                 to: apelacion.email,
                 from: "enviocorreomunicipalidad@gmail.com",
-                subject: "Respuesta de postulación",
+                subject: "Respuesta de apelación",
                 text: "Comunicado", 
                 html: `<strong>${mensaje}</strong>`,
             };
