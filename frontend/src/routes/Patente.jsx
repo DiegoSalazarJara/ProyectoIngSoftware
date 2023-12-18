@@ -1,4 +1,3 @@
-import Search from '../components/Search.jsx'
 import TablePatente from '../components/TablePatente.jsx';
 export default function Patente() {
 
@@ -11,7 +10,6 @@ export default function Patente() {
           </div>
       </header>
     </div>
-    <Search/>
     <TablePatente/>
     </>
   );
