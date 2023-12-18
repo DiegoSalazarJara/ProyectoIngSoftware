@@ -70,7 +70,7 @@ import { useState, useEffect } from 'react';
           description: 'Apartado que te permite mostrar los pagares',
           imageSrc: './src/images/pagares.png',
           imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-          href: '#',
+          href: 'listarpagares',
         },
         {
           id: 'image-postular',
@@ -101,11 +101,11 @@ import { useState, useEffect } from 'react';
         },
         {
           id: 'image-postular',
-          name: 'Ej3',
-          description: 'texto admin3',
+          name: 'Crear Patente',
+          description: 'Apartado que te permite crear una patente',
           imageSrc: './src/images/Postular.jpg',
           imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-          href: '#',
+          href: 'crearpatente',
         },
       ]
 

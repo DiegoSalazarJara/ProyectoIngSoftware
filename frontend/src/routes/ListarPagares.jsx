@@ -11,7 +11,7 @@ export default function ListarPagares() {
             </div>
         </header>
       </div>
-      <ListarPagare/>
+      <ListarPagares/>
       </>
     );
   }
