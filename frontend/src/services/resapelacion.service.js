@@ -25,7 +25,7 @@ export const FormResApelacion = async (data) => {
   export const deleteResApelacion = async (resapelacionId)  => {
     try {
       const response = await axios.delete(`/resApelacion/${resapelacionId}`);
-      return response; //puede ir lo del exito de delete
+      return response; 
     } catch (error) {
       console.error('Error al eliminar la respuesta de la apelación:', error);
       return { status: 500, error: error.message };

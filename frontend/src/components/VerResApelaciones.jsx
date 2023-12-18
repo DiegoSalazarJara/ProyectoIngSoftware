@@ -7,10 +7,9 @@ const MostrarResApelacion = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Lógica de búsqueda
     axios.get(`/resApelacion?id=${searchQuery}`)
       .then((response) => {
-        setRespuestas(response.data); // Establecer las respuestas filtradas en el estado
+        setRespuestas(response.data);
       })
       .catch((error) => {
         console.error('Error al obtener las respuestas filtradas:', error);
@@ -18,10 +17,9 @@ const MostrarResApelacion = () => {
   };
 
   useEffect(() => {
-    // Lógica para obtener todas las respuestas desde el backend al cargar inicialmente
     axios.get('/resApelacion')
       .then((response) => {
-        setRespuestas(response.data); // Establecer todas las respuestas en el estado
+        setRespuestas(response.data);
       })
       .catch((error) => {
         console.error('Error al obtener las respuestas:', error);

@@ -28,7 +28,6 @@ export default function Respuesta() {
       try {
         await deleteRespuesta(id);
         await showDeleteRespuesta();
-        // Llamar a fetchData después de eliminar para actualizar la lista
         fetchData();
       } catch (error) {
         console.error('Error deleting respuesta:', error);

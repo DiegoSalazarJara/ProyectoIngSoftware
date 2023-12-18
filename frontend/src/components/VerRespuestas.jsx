@@ -17,10 +17,9 @@ const MostrarRespuestas = () => {
   };
 
   useEffect(() => {
-    // Lógica para obtener todas las respuestas desde el backend al cargar inicialmente
     axios.get('/respuesta')
       .then((response) => {
-        setRespuestas(response.data); // Establecer todas las respuestas en el estado
+        setRespuestas(response.data); 
       })
       .catch((error) => {
         console.error('Error al obtener las respuestas:', error);

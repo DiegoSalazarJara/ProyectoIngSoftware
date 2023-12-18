@@ -25,7 +25,7 @@ export const formRespuesta = async (data) => {
   export const deleteRespuesta = async (respuestaId)  => {
     try {
       const response = await axios.delete(`/respuesta/${respuestaId}`);
-      return response; //puede ir lo del exito de delete
+      return response;
     } catch (error) {
       console.error('Error al eliminar la evaluación:', error);
       return { status: 500, error: error.message };

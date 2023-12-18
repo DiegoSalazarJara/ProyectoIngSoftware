@@ -24,7 +24,7 @@ export default function Apelacion() {
       try {
         await deleteApelacion(id);
         await showDeleteApelacion();
-        setSearchValue(''); // Limpiar el valor de búsqueda para actualizar la página
+        setSearchValue('');
       } catch (error) {
         console.error('Error deleting apelación:', error);
       }
@@ -32,7 +32,7 @@ export default function Apelacion() {
   
     useEffect(() => {
       fetchData();
-    }, [searchValue]); // Ejecutar cada vez que searchValue cambie
+    }, [searchValue]);
   
     useEffect(() => {
       fetchData();
