@@ -26,6 +26,13 @@ export const showErrorForm = async () => {
     });
 }
 
+export const showExportForm = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Se ha exportado un pagaré exitosamente!"
+  });
+}
+
 export const showConfirmUpdateForm = async () => {
   await Toast.fire({
     icon: "success",
@@ -101,5 +108,19 @@ export const showDeleteRespuesta = async () => {
   await Toast.fire({
     icon: "success",
     title: "Evaluación de postulación eliminada exitosamente"
+  });
+
+}
+
+export const showCreateForm = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Pagaré creado correctamente"
+  });
+}
+export const showCreateFormE = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Evaluador creado correctamente"
   });
 }

@@ -56,7 +56,6 @@ export default function Navbar() {
   const navAdmin = [
     { name: 'Crear Evaluador', href: 'CrearEvaluador', current: false },
     { name: 'Mostrar Evaluadores', href: 'VerEvaluadores', current: false },
-    { name: 'Eliminar un Evaluador', href: 'EliminarEvaluador', current: false },
     { name: 'Crear Patente', href: 'crearpatente', current: false },
     { name: 'Ver Patentes', href: 'patentes', current: false },
   ]
