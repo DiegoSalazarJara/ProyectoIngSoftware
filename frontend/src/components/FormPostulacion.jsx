@@ -4,15 +4,13 @@ import { useForm } from "react-hook-form";
 import { createForms } from '../services/postulacion.service.js';
 import { useState } from 'react';
 import { showConfirmForm, showErrorForm } from '../helpers/swaHelper.js';
-
 export default function FormPostulante() {
 
-  const [certificadoResidencia, setCertificadoResidencia] = useState('');
-  const [certificadoConstitucion, setCertificadoConstitucion] = useState('');
-  const [fotocopiaCarnet, setFotocopiaCarnet] = useState('');
-  const [certificadoArriendo, setCertificadoArriendo] = useState('');
+  const [certificadoResidencia, setCertificadoResidencia] = useState(null);
+  const [certificadoConstitucion, setCertificadoConstitucion] = useState(null);
+  const [fotocopiaCarnet, setFotocopiaCarnet] = useState(null);
+  const [certificadoArriendo, setCertificadoArriendo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   const {register,formState: { errors },handleSubmit,reset,
   } = useForm();
@@ -36,17 +34,20 @@ export default function FormPostulante() {
       formData.append("certificadoArriendo", certificadoArriendo);
 
       const response = await createForms(formData);
-      console.log(response)
       
       if (response.status === 201) {
         await showConfirmForm();
         reset();
+        setCertificadoResidencia(null)
+        setCertificadoConstitucion(null)
+        setFotocopiaCarnet(null)
+        setCertificadoArriendo(null)
       } else if (response.status === 500) {
         await showErrorForm();
       }
 
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log("Error:",error)
     }finally {
       setIsLoading(false);
     }
@@ -293,25 +294,32 @@ export default function FormPostulante() {
       <div className="border-b border-gray-900/10 pb-8">
       <div className="border-b border-gray-900/10 pb-8">
       <div className="mt-3">
-            <label htmlFor="certificadoResidencia" className="block text-sm font-medium leading-6 text-gray-900">
-            Certificado de residencia
-            </label>
-            <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-            <div className="text-center">
-            <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-            <div className="mt-4 flex text-sm leading-6 text-gray-600">
-            <label htmlFor="certificadoResidencia" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
-            <span>Subir archivo</span>
-            <input
-              id="certificadoResidencia"
-              name="certificadoResidencia"
-              type="file"
-              className="opacity-0 absolute left-[-9999px]"
-              onChange={(e) => setCertificadoResidencia(e.target.files[0])}
-            />
-            </label>
-            </div>
-            <p className="text-xs leading-5 text-gray-600">PDF</p>
+      <label htmlFor="certificadoResidencia" className="block text-sm font-medium leading-6 text-gray-900">
+                Certificado de residencia
+              </label>
+              <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="text-center">
+                  <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+                  <div className="mt-4 flex justify-center text-sm leading-6 text-gray-600">
+                    <label
+                      htmlFor="certificadoResidencia"
+                      className="flex flex-col items-center justify-center relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span>Subir archivo</span>
+                      <input
+                        id="certificadoResidencia"
+                        name="certificadoResidencia"
+                        type="file"
+                        className="opacity-0 absolute left-[-9999px]"
+                        onChange={(e) => setCertificadoResidencia(e.target.files[0])}
+                      />
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <p className="text-xs leading-5 text-gray-600">
+                      {certificadoResidencia ? `PDF: ${certificadoResidencia.name}` : 'PDF'}
+                    </p>
+                  </div>
             </div>
             </div>
             </div>
@@ -324,7 +332,7 @@ export default function FormPostulante() {
             <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+            <div className="mt-4 flex justify-center text-sm leading-6 text-gray-600">
             <label htmlFor="certificadoConstitucion" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
@@ -336,7 +344,11 @@ export default function FormPostulante() {
             /> 
             </label>
             </div>
-            <p className="text-xs leading-5 text-gray-600">PDF</p>
+            <div className="mt-2">
+            <p className="text-xs leading-5 text-gray-600">
+              {certificadoConstitucion ? `PDF: ${certificadoConstitucion.name}` : 'PDF'}
+            </p>
+            </div>
             </div>
             </div>
         </div>  
@@ -350,7 +362,7 @@ export default function FormPostulante() {
             <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+            <div className="mt-4 flex justify-center text-sm leading-6 text-gray-600">
             <label htmlFor="fotocopiaCarnet" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
@@ -362,7 +374,11 @@ export default function FormPostulante() {
             /> 
             </label>
             </div>
-            <p className="text-xs leading-5 text-gray-600">PNG</p>
+            <div className="mt-2">
+            <p className="text-xs leading-5 text-gray-600">
+              {fotocopiaCarnet ? `PNG: ${fotocopiaCarnet.name}` : 'PNG'}
+            </p>
+            </div>
             </div>
             </div>
         </div>  
@@ -375,7 +391,7 @@ export default function FormPostulante() {
             <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+            <div className="mt-4 flex justify-center text-sm leading-6 text-gray-600">
             <label htmlFor="certificadoArriendo" className="relative cursor-pointer rounded-md bg-white font-semibold text-azul focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" >
             <span>Subir archivo</span>
             <input 
@@ -387,7 +403,11 @@ export default function FormPostulante() {
             />
             </label>
             </div>
-            <p className="text-xs leading-5 text-gray-600">PDF</p>
+            <div className="mt-2">
+            <p className="text-xs leading-5 text-gray-600">
+              {certificadoArriendo ? `PDF: ${certificadoArriendo.name}` : 'PDF'}
+            </p>
+            </div>
             </div>
             </div>
         </div> 

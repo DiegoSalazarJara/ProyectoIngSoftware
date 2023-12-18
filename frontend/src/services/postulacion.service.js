@@ -38,7 +38,8 @@ export async function getPostulacion(searchValue) {
       const data = res.data;
       return [data];
     } catch (error) {
-      console.error('Error fetching postulacion:', error);
+      console.log('Error fetching postulacion:', error);
+      throw error;
     }
   }
 

@@ -2,14 +2,14 @@ import 'tailwindcss/tailwind.css';
 import { useState, useEffect } from 'react';
 import { getPostulacion, deletePostulacion} from '../services/postulacion.service.js';
 import { getArchive } from '../services/Archive.service.js';
-import { showDeleteForm } from '../helpers/swaHelper.js';
+import { showDeleteForm, DeleteQuestion, showNotFoundForm } from '../helpers/swaHelper.js';
 import { useNavigate } from 'react-router-dom';
 export default function MiPostulacion() {
   const [postulacion, setPostulacion] = useState([]);
   const [searchValue, setSearchValue] = useState(""); 
   const navigate = useNavigate();
   const handleSearch = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
     const value = event.target.q.value;
     setSearchValue(value);
   };
@@ -18,9 +18,17 @@ export default function MiPostulacion() {
     if (searchValue) {
       getPostulacion(`${searchValue}?_=${new Date().getTime()}`)
         .then((data) => setPostulacion(data))
-        .catch((error) => console.error("Error fetching data:", error));
+        .catch(async (error) => {
+          const status = error.response.status;
+          if (status === 404) {
+            await showNotFoundForm();
+          }
+          console.error("Error fetching data:", status);
+        });
     }
   }, [searchValue]);
+  
+  
   
 
   const handlePDF = async (url) => {
@@ -65,13 +73,14 @@ export default function MiPostulacion() {
     }
   };
 
-
-  
-
-  const handleDeleted = async (postulacionToDelete) => {
-    const response = await deletePostulacion(postulacionToDelete)
-    if(response.status === 200){
-      await showDeleteForm()
+ const handleDeleted = async (postulacionToDelete) => {
+    const isConfirmed = await DeleteQuestion();
+    console.log(isConfirmed)
+    if (isConfirmed) {
+      const response = await deletePostulacion(postulacionToDelete);
+      if (response.status === 200) {
+        await showDeleteForm();
+      }
     }
   };
 
