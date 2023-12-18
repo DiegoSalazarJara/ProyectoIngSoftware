@@ -26,6 +26,7 @@ export default function FormApelacion() {
         <div>
             <div className="mt-10">
             <form className="mx-auto max-w-sm" onSubmit={handleSubmit(onSubmit)}>
+            <h2 className="text-xl font-bold">Formulario de apelación:</h2>
                  <div className="col-span-full">
                         <label htmlFor="respuestaId" className="block text-sm font-medium leading-6 text-gray-900">
                             ID Respuesta
