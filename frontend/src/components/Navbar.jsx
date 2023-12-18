@@ -131,7 +131,7 @@ export default function Navbar() {
                       <img
                         id='profile-image'
                         className="h-8 w-8 rounded-full"
-                        src="./src/images/profile.png"
+                        src="../../public/images/profile.png"
                         alt=""
                       />
                     </Menu.Button>
