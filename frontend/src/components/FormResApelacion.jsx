@@ -106,7 +106,7 @@ export default function FormResApelacion() {
                                         message: "El mensaje debe tener al menos una palabra."
                                      },
                                         maxLength: {
-                                        value: 500,
+                                        value: 2500,
                                         message: "El mensaje no puede exceder 500 palabras."
                                         }
                                         })}

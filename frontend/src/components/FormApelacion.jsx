@@ -55,7 +55,22 @@ export default function FormApelacion() {
                     <input
                         type="text"
                         {...register("nombre", {
-                            required: "Este campo es requerido"
+                            required: {
+                                value: true,
+                                message: "Nombre completo es requerido",
+                              },
+                              maxLength: {
+                                value: 30,
+                                message: "Nombre debe tener máximo 30 caracteres",
+                              },
+                              minLength: {
+                                value: 2,
+                                message: "Nombre debe tener mínimo 2 caracteres",
+                              },
+                              pattern: {
+                                value: /^[A-Za-z ]+$/,
+                                message: "Nombre solo puede contener letras y espacios",
+                              },
                         })}
                         id="nombre"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -74,43 +89,53 @@ export default function FormApelacion() {
                         })}
                         id="rutpostulante"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Ingrese rut sin puntos y con guión"
+                        placeholder="Ej: 12345678-9"
                     />
                     {errors.rutpostulante && <span className="text-red-500">{errors.rutpostulante.message}</span>}
                     </div>
                 </div>
                 <div className="col-span-full">
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                        Email</label>
+                        Correo electrónico</label>
                         <div className="mt-2">
                     <input
                         type="email"
                         {...register("email", {
-                            required: "Este campo es requerido",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "Dirección de correo electrónico inválida"
-                            }
+                            required: {
+                                value: true,
+                                message: "El email es requerido",
+                              },
+                              pattern: {
+                                  value: "^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]+$",
+                                  message: "Email no válido",
+                                },
                         })}
                         id="email"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Ejemplo: usuario1@gmail.com"
+                        placeholder="Ej: usuario@gmail.com"
                     />
                     {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                     </div>
                 </div>
                 <div className="col-span-full">
                     <label htmlFor="rutempresa" className="block text-sm font-medium leading-6 text-gray-900">
-                        RUT Empresa</label>
+                        Rut de empresa</label>
                         <div className="mt-2">
                     <input
                         type="text"
                         {...register("rutempresa", {
-                            required: "Este campo es requerido"
+                            required: {
+                                value: true,
+                                message: "El rut de empresa es requerido",
+                              },
+                              pattern: {
+                                value: /^[0-9]+-[0-9kK]{1}$/,
+                                message: "Rut no válido",
+                              },
                         })}
                         id="rutempresa"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Ingrese rut sin puntos y con guión"
+                        placeholder="Ej: 40114523-7"
                     />
                     {errors.rutempresa && <span className="text-red-500">{errors.rutempresa.message}</span>}
                     </div>
@@ -122,7 +147,22 @@ export default function FormApelacion() {
                     <input
                         type="text"
                         {...register("nombreEmpresa", {
-                            required: "Este campo es requerido"
+                            required: {
+                                value: true,
+                                message: "Nombre de empresa es requerido",
+                              },
+                              maxLength: {
+                                value: 20,
+                                message: "Nombre de empresa debe tener máximo 20 caracteres",
+                              },
+                              minLength: {
+                                value: 2,
+                                message: "Nombre de empresa debe tener mínimo 2 caracteres",
+                              },
+                              pattern: {
+                                value: /^[A-Za-z ]+$/,
+                                message: "Nombre de empresa solo puede contener letras y espacios",
+                              },
                         })}
                         id="nombreEmpresa"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -132,12 +172,27 @@ export default function FormApelacion() {
                 </div>
                 <div className="col-span-full">
                     <label htmlFor="direccion" className="block text-sm font-medium leading-6 text-gray-900">
-                        Dirección</label>
+                        Dirección de empresa</label>
                         <div className="mt-2">
                     <input
                         type="text"
                         {...register("direccion", {
-                            required: "Este campo es requerido"
+                            required: {
+                                value: true,
+                                message: "Direccion de empresa es requerido",
+                              },
+                              maxLength: {
+                                value: 20,
+                                message: "Direccion de empresa debe tener máximo 20 caracteres",
+                              },
+                              minLength: {
+                                value: 5,
+                                message: "Direccion de empresa debe tener mínimo 5 caracteres",
+                              },
+                              pattern: {
+                                value: /^[A-Za-z ]+$/,
+                                message: "Direccion de empresa solo puede contener letras y espacios",
+                              },
                         })}
                         id="direccion"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
