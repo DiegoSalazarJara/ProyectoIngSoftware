@@ -13,7 +13,14 @@ import FormularioPostulante from './routes/Postulacion.jsx';
 import CrearPatente from './routes/CrearPatente.jsx';
 import Patentes from './routes/Patentes.jsx';
 import UpdateFormpostulante from './routes/updateForm.jsx';
-
+import FormRespuesta from './routes/formRespuesta.jsx';
+import FormResApelacion from './routes/formResApelacion.jsx';
+import VerRespuestas from './routes/verRepuestas.jsx';
+import VerResApelaciones from './routes/verResApelaciones.jsx';
+import FormApelacion from './routes/formApelacion.jsx';
+import VerApelacion from './routes/verApelacion.jsx';
+import VerRespuesta from './routes/verRespuesta.jsx';
+import VerResApelacion from './routes/verResApelacion.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -59,6 +66,42 @@ const router = createBrowserRouter([
       {
         path: '/updateForm',
         element: <UpdateFormpostulante/>,
+      },
+      {
+        path: '/respuesta',
+        element: <FormRespuesta/>,
+      },
+      {
+        path: '/respuestas',
+        element: <VerRespuestas/>,
+      },
+      {
+        path: '/verrespuesta',
+        element: <VerRespuesta/>,
+      },
+      {
+        path: '/verapelacion',
+        element: <VerApelacion/>,
+      },
+      {
+        path: 'resapelaciones',
+        element: <VerResApelaciones/>,
+      },
+      {
+        path: '/verresapelacion',
+        element: <VerResApelacion/>,
+      },
+      {
+        path: '/resapelacion',
+        element: <FormResApelacion/>,
+      },
+      {
+        path: '/apelacion',
+        element: <FormApelacion/>,
+      },
+      {
+        path: '/apelaciones',
+        element: <VerApelacion/>,
       },
     ],
   },
