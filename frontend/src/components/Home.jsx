@@ -74,11 +74,11 @@ import { useState, useEffect } from 'react';
         },
         {
           id: 'image-postular',
-          name: 'Ej3',
-          description: 'texto evaluador3',
+          name: 'Mostrar postulaciones evaluadas',
+          description: 'Apartado que te permite mostrar las postulaciones evaluadas',
           imageSrc: './src/images/Postular.jpg',
           imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-          href: '#',
+          href: 'respuestas',
         },
       ]
     

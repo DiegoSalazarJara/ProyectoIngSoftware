@@ -80,15 +80,11 @@ const router = createBrowserRouter([
         element: <VerRespuesta/>,
       },
       {
-        path: '/verapelacion',
-        element: <VerApelacion/>,
+        path: '/resapelaciones',
+        element: <VerResApelaciones/>, 
       },
       {
-        path: 'resapelaciones',
-        element: <VerResApelaciones/>,
-      },
-      {
-        path: '/verresapelacion',
+        path: '/verresapelacion',  
         element: <VerResApelacion/>,
       },
       {

@@ -68,9 +68,9 @@ export default function FormApelacion() {
                                 message: "Nombre debe tener mínimo 2 caracteres",
                               },
                               pattern: {
-                                value: /^[A-Za-z ]+$/,
-                                message: "Nombre solo puede contener letras y espacios",
-                              },
+                                value: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/,
+                                message: "El nombre solo puede contener letras y espacios",
+                                },
                         })}
                         id="nombre"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -182,7 +182,7 @@ export default function FormApelacion() {
                                 message: "Direccion de empresa es requerido",
                               },
                               maxLength: {
-                                value: 20,
+                                value: 50,
                                 message: "Direccion de empresa debe tener máximo 20 caracteres",
                               },
                               minLength: {
@@ -190,8 +190,8 @@ export default function FormApelacion() {
                                 message: "Direccion de empresa debe tener mínimo 5 caracteres",
                               },
                               pattern: {
-                                value: /^[A-Za-z ]+$/,
-                                message: "Direccion de empresa solo puede contener letras y espacios",
+                                value: /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ,0-9# ]+$/,
+                                message: "Nombre de empresa solo puede contener letras, números, espacios, tildes, ',' y '#'",
                               },
                         })}
                         id="direccion"

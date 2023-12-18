@@ -49,6 +49,8 @@ export default function Navbar() {
     { id: 'id-postular' ,name: 'Postular', href: 'postulacion', current: false },
     { id: 'id-postulaciones' ,name: 'Mi postulación', href: 'mipostulacion', current: false },
     { id: 'id-patentes' ,name: 'Mi patente', href: 'patente', current: false },
+    { name: 'Ver mi apelación', href: 'apelaciones', current: false },
+    { name: 'Crear apelación', href: 'apelacion', current: false },
   ]
   
   const navAdmin = [
@@ -63,6 +65,11 @@ export default function Navbar() {
     { name: 'Emitir un pagare', href: 'pagare', current: false },
     { name: 'Mostrar un pagare por ID', href: 'listpagare', current: false },
     { name: 'Listar todos los pagarés', href: 'listarpagares', current: false },
+    { name: 'Apelaciones evaluadas', href: 'resapelaciones', current: false },
+    { name: 'Ver evaluación de apelación', href: 'verresapelacion', current: false },
+    { name: 'Ver evaluación de postulación', href: 'verrespuesta', current: false },
+    { name: 'Evaluar postulación', href: 'respuesta', current: false },
+    { name: 'Evaluar apelación', href: 'resapelacion', current: false },
   ]
 
   

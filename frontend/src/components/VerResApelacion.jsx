@@ -1,5 +1,7 @@
 import { useState , useEffect } from 'react';
 import { getResApelacion , deleteResApelacion } from '../services/resapelacion.service.js';
+import { showDeleteResApelacion } from '../helpers/swaHelper.js';
+
 
 export default function ResApelacion() {
     const [resapelacion, setResApelacion] = useState([]);
@@ -22,6 +24,7 @@ useEffect(() => {
     const handleDelete = async (id) => {
         try {
             await deleteResApelacion(id);
+            await showDeleteResApelacion();
         } catch (error) {
             console.error("Error deleting respuesta:", error);
         }
@@ -32,6 +35,7 @@ return (
         {/*Search*/}
         <div className="flex flex-1 items-center justify-center p-6">
             <div className="w-full max-w-lg">
+            <h2 className="text-xl font-bold">Ingrese ID de la respuesta de apelación:</h2>
                 <form className="mt-5 sm:flex sm:items-center" onSubmit={handleSearch}>
                     <input
                     id="q"

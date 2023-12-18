@@ -83,3 +83,23 @@ export const showErrorPatente = async () => {
     });
 }
 
+export const showDeleteApelacion = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Apelación eliminada exitosamente"
+  });
+}
+
+export const showDeleteResApelacion = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Evaluación de apelación eliminada exitosamente"
+  });
+}
+
+export const showDeleteRespuesta = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Evaluación de postulación eliminada exitosamente"
+  });
+}

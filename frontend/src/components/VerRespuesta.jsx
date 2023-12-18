@@ -1,37 +1,50 @@
 import { useState , useEffect } from 'react';
 import { getRespuesta , deleteRespuesta } from '../services/respuesta.service.js';
+import { showDeleteRespuesta } from '../helpers/swaHelper.js';
 
 export default function Respuesta() {
     const [respuesta, setRespuesta] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
-
+    const [searchValue, setSearchValue] = useState('');
+  
     const handleSearch = (event) => {
-        event.preventDefault();
-        const value = event.target.q.value;
-        setSearchValue(value);
-};
-
-useEffect(() => {
-    if (searchValue) {
-        getRespuesta(searchValue)
-            .then((data) => setRespuesta(data))
-            .catch((error) => console.error("Error fetching data: ", error));
-        }
-    }, [searchValue]);
-
-    const handleDelete = async (id) => {
-        try {
-            await deleteRespuesta(id);
-        } catch (error) {
-            console.error("Error deleting respuesta:", error);
-        }
+      event.preventDefault();
+      const value = event.target.q.value;
+      setSearchValue(value);
     };
+  
+    const fetchData = () => {
+      if (searchValue) {
+        getRespuesta(searchValue)
+          .then((data) => setRespuesta(data))
+          .catch((error) => console.error('Error fetching data: ', error));
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, [searchValue]);
+  
+    const handleDelete = async (id) => {
+      try {
+        await deleteRespuesta(id);
+        await showDeleteRespuesta();
+        // Llamar a fetchData después de eliminar para actualizar la lista
+        fetchData();
+      } catch (error) {
+        console.error('Error deleting respuesta:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
 
 return (
     <>
         {/*Search*/}
         <div className="flex flex-1 items-center justify-center p-6">
             <div className="w-full max-w-lg">
+            <h2 className="text-xl font-bold">Ingrese ID de la respuesta de postulación:</h2>
                 <form className="mt-5 sm:flex sm:items-center" onSubmit={handleSearch}>
                     <input
                     id="q"
@@ -55,7 +68,7 @@ return (
             {Array.isArray(respuesta) && respuesta.map((respuesta, index) => (
                 <div key={index} className="w-full max-w-lg bg-white border border-gray-300 rounded-lg shadow-lg mx-auto my-8">
                 <div className="px-4 py-4 mx-auto text-center">
-                <h2 className="text-xl font-bold">Evaluación</h2>
+                <h2 className="text-xl font-bold">Evaluación de postulación</h2>
                 </div>
                 <div className="px-6 py-4 space-y-4">
                 <div className="space-y-2">

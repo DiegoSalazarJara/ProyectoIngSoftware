@@ -1,31 +1,42 @@
 import { useState , useEffect } from 'react';
 import { getApelacion , deleteApelacion } from '../services/apelacion.service.js';
+import { showDeleteApelacion } from '../helpers/swaHelper.js';
 
 export default function Apelacion() {
     const [apelacion, setApelacion] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
-
-    const handleSearch = (event) => {
-        event.preventDefault();
-        const value = event.target.q.value;
-        setSearchValue(value);
-};
-
-useEffect(() => {
-    if (searchValue) {
+    const [searchValue, setSearchValue] = useState('');
+  
+    const fetchData = () => {
+      if (searchValue) {
         getApelacion(searchValue)
-            .then((data) => setApelacion(data))
-            .catch((error) => console.error("Error fetching data: ", error));
-        }
-    }, [searchValue]);
-
-    const handleDelete = async (id) => {
-        try {
-            await deleteApelacion(id);
-        } catch (error) {
-            console.error("Error deleting apelación:", error);
-        }
+          .then((data) => setApelacion(data))
+          .catch((error) => console.error('Error fetching data: ', error));
+      }
     };
+  
+    const handleSearch = (event) => {
+      event.preventDefault();
+      const value = event.target.q.value;
+      setSearchValue(value);
+    };
+  
+    const handleDelete = async (id) => {
+      try {
+        await deleteApelacion(id);
+        await showDeleteApelacion();
+        setSearchValue(''); // Limpiar el valor de búsqueda para actualizar la página
+      } catch (error) {
+        console.error('Error deleting apelación:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, [searchValue]); // Ejecutar cada vez que searchValue cambie
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
 
 return (
     <>
@@ -60,7 +71,7 @@ return (
                 </div>
                 <div className="px-6 py-4 space-y-4">
                 <div className="space-y-2">
-                <p><strong>ID de Respuesta: </strong> {apelacion.respuesta}</p>
+                <p><strong>ID de Respuesta: </strong> {apelacion._id}</p>
                 </div>
                 <div className="space-y-2">
                 <p><strong>Nombre Postulante: </strong> {apelacion.nombre}</p>
@@ -87,7 +98,7 @@ return (
                 <div className="px-6 py-4 flex justify-center">
                  <button
                     className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-blue-600"
-                    onClick={() => handleDelete(respuesta.rutpostulante)} 
+                    onClick={() => handleDelete(apelacion.rutpostulante)} 
                      >
                         Eliminar Apelación
                         </button>
