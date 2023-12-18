@@ -66,26 +66,10 @@ export const deleteApelacion = async (req, res) => {
   }
 };
 
- /*export const deleteApelacion = async (req, res) => {
-    try {
-      const apelacionId = req.params.id;
-      const apelar = await apelacion.findById(apelacionId);
-      if (!apelar) {
-        return res.status(404).json({ message: "Apelacion no encontrada" });
-      }
-      await apelacion.findOneAndDelete(apelacionId);
-  
-      res.json({ message: 'Apelación eliminada correctamente' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };*/
-
-
 export const updateApelacion = async (req, res) => {
   try {
-    const apelacionId = req.params.id;
-    const apelar = await apelacion.findOne(apelacionId);
+    const apelacionId = req.params.rutpostulante;
+    const apelar = await apelacion.findOne({ rutpostulante: apelacionId });
     if (!apelar) {
       return res.status(404).json({ message: "Apelación no encontrada" });
     }
@@ -101,6 +85,7 @@ export const updateApelacion = async (req, res) => {
     apelar.nombreEmpresa = req.body.nombreEmpresa;
     apelar.direccion = req.body.direccion;
     apelar.apelacion = req.body.apelacion;
+    apelar.email = req.body.email;
 
     const apelacionActualizada = await apelar.save();
     res.json(apelacionActualizada);

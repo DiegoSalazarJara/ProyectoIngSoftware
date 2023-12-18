@@ -9,7 +9,7 @@ router.use(authenticationMiddleware);
 router.post("/", authorizationMiddleware.isPostulante, crearApelacion);
 router.get("/:rutpostulante", authorizationMiddleware.isPostulante,getApelacion);
 router.delete("/:id", authorizationMiddleware.isPostulante, deleteApelacion);
-router.patch("/:rutpostulante", authorizationMiddleware.isPostulante, updateApelacion);
+router.put("/:rutpostulante", authorizationMiddleware.isPostulante, updateApelacion);
 router.get("/", authorizationMiddleware.isEvaluador, getApelaciones);
 
 export default router;
