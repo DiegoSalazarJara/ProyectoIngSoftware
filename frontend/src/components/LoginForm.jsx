@@ -21,80 +21,75 @@ import { useForm } from 'react-hook-form';
 
   return (
     <>
-    
-      <div className="flex items-center justify-center h-screen">
-        <div className="bg-white rounded-lg shadow-xl p-9 w-full sm:max-w-md">
-       
-          <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-            Inicio sesión
-          </h2>
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email
-                </label>
-                <div className="mt-2">
-                  <input
-                    name="email"
-                    type="email"
-                    {...register("email", {
-                      required: {
-                        value: true,
-                        message: "El email es requerido",
+     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+          <div className="text-center">
+            <h2 className="mt-6 mb-4 text-3xl font-extrabold text-gray-900">Inicio de sesión</h2>
+          </div>
+          <form  className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+                Correo Electrónico
+              </label>
+              <div className="mt-1">
+                <input
+                  autoComplete="email"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  id="email"
+                  name="email"
+                  type="email"
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "El email es requerido",
+                    },
+                    pattern: {
+                        value: "^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]+$",
+                        message: "Email no válido",
                       },
-                      pattern: {
-                          value: "^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]+$",
-                          message: "Email no válido",
-                        },
-                      })}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                  {errors.email && (
+                    })}
+                />
+                {errors.email && (
                 <span className="text-red-500 text-sm">{errors.email.message}</span>
               )}
-                </div>
               </div>
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-negro">
-                    Contraseña
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <input
-                    name="password"
-                    type="password"
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "La contraseña es requerida",
-                      }
-                      })}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                  {errors.password && (
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700" htmlFor="password">
+                Contraseña
+              </label>
+              <div className="mt-1">
+                <input
+                  autoComplete="current-password"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  id="password"
+                  name="password"
+                  type="password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "La contraseña es requerida",
+                    }
+                    })}
+                />
+                {errors.password && (
                 <span className="text-red-500 text-sm">{errors.password.message}</span>
               )}
-                  
-                </div>
               </div>
-
-              <div>
-                <button
-                  id='form-button'
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-azul py-2 px-4 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring focus:ring-indigo-200"
-                >
-                  Ingresar
-                </button>
-              </div>
-            </form>
             </div>
+            <div>
+              <button
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                type="submit"
+              >
+                Sign in
+              </button>
             </div>
+          </form>
         </div>
-      
+      </div>
+    </div>
     </>
   )
 }
