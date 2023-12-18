@@ -31,3 +31,13 @@ export const FormResApelacion = async (data) => {
       return { status: 500, error: error.message };
     }
   };
+
+  export const updateApelacion = async (rutpostulante, data) => {
+    try {
+      const response = await axios.put(`/apelacion/${rutpostulante}`, data);
+      return response;
+    } catch (error) {
+      console.error('Error al actualizar la respuesta de la apelación:', error);
+      return { status: 500, error: error.message };
+    }
+  }
