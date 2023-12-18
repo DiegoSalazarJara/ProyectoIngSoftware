@@ -1,15 +1,15 @@
 import 'tailwindcss/tailwind.css';
 import { useState, useEffect } from 'react';
-import { getPostulacion} from '../services/postulacion.service.js';
+import { getPostulacion, deletePostulacion} from '../services/postulacion.service.js';
 import { getArchive } from '../services/Archive.service.js';
-
-
+import { showDeleteForm } from '../helpers/swaHelper.js';
+import { useNavigate } from 'react-router-dom';
 export default function MiPostulacion() {
   const [postulacion, setPostulacion] = useState([]);
   const [searchValue, setSearchValue] = useState(""); 
-
-  const handleSearch = (event) => {
-    event.preventDefault();
+  const navigate = useNavigate();
+  const handleSearch = async (event) => {
+      event.preventDefault();
     const value = event.target.q.value;
     setSearchValue(value);
   };
@@ -65,9 +65,15 @@ export default function MiPostulacion() {
     }
   };
 
-  const handleDeleted = () => {
 
-  }
+  
+
+  const handleDeleted = async (postulacionToDelete) => {
+    const response = await deletePostulacion(postulacionToDelete)
+    if(response.status === 200){
+      await showDeleteForm()
+    }
+  };
 
   function PencilIcon(props) {
     return (
@@ -110,7 +116,8 @@ export default function MiPostulacion() {
       </svg>
     )
   }
- 
+
+
   return (
     <>
         {/*Search*/}
@@ -137,14 +144,20 @@ export default function MiPostulacion() {
         </div>
 
         {/* Card data Form*/}
-        {postulacion.map((postulacion, index) => (
+        {postulacion && postulacion.map((postulacion, index) => (
         <div key={index} className="relative bg-white shadow-lg rounded-lg max-w-3xl mx-auto mb-20">
       <header className="p-4">
         <div className="flex justify-end px-2 py-2 space-x-2">
-          <button className="w-8 h-8 bg-blue-500 hover:bg-blue-700 text-white rounded-full flex items-center justify-center mb-2">
+          <button 
+          className="w-8 h-8 bg-blue-500 hover:bg-blue-700 text-white rounded-full flex items-center justify-center mb-2"
+          onClick={() => navigate('/updateForm')}
+          >
             <PencilIcon className="w-4 h-4" />
           </button>
-          <button className="w-8 h-8 bg-red-500 hover:bg-red-700 text-white rounded-full flex items-center justify-center">
+          <button 
+          className="w-8 h-8 bg-red-500 hover:bg-red-700 text-white rounded-full flex items-center justify-center"
+          onClick={() => handleDeleted(postulacion._id)}
+          >
             <TrashIcon className="w-4 h-4" />
           </button>
         </div>

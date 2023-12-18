@@ -1,11 +1,11 @@
 import 'tailwindcss/tailwind.css';
 import { PhotoIcon} from '@heroicons/react/24/solid'
 import { useForm } from "react-hook-form";
-import { createForms } from '../services/postulacion.service.js';
+import { UpdateForms } from '../services/postulacion.service.js';
 import { useState } from 'react';
-import { showConfirmForm, showErrorForm } from '../helpers/swaHelper.js';
+import { showConfirmUpdateForm, showErrorUpdateForm } from '../helpers/swaHelper.js';
 
-export default function FormPostulante() {
+export default function UpdateFormPostulante() {
 
   const [certificadoResidencia, setCertificadoResidencia] = useState('');
   const [certificadoConstitucion, setCertificadoConstitucion] = useState('');
@@ -21,7 +21,7 @@ export default function FormPostulante() {
     try {
       setIsLoading(true);
       console.log('Datos antes de la solicitud POST:', data);
-
+      const rut = data.rutpostulante
       const formData = new FormData();
       formData.append("nombre", data.nombre);
       formData.append("rutpostulante", data.rutpostulante);
@@ -35,14 +35,15 @@ export default function FormPostulante() {
       formData.append("fotocopiaCarnet", fotocopiaCarnet);
       formData.append("certificadoArriendo", certificadoArriendo);
 
-      const response = await createForms(formData);
+      const response = await UpdateForms(formData, rut);
       console.log(response)
       
-      if (response.status === 201) {
-        await showConfirmForm();
+      if (response.status === 200) {
+        await showConfirmUpdateForm();
+        reset()
         reset();
       } else if (response.status === 500) {
-        await showErrorForm();
+        await showErrorUpdateForm();
       }
 
     } catch (err) {

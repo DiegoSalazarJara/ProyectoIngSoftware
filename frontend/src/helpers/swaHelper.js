@@ -26,6 +26,21 @@ export const showErrorForm = async () => {
     });
 }
 
+export const showConfirmUpdateForm = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Postulación actualizada exitosamente!"
+  });
+};
+
+export const showErrorUpdateForm = async () => {
+    await Toast.fire({
+      icon: "error",
+      title: "Error al actualizar la postulación"
+    });
+}
+
+
 export const showNotFoundForm = async () => {
   await Toast.fire({
     icon: "question",

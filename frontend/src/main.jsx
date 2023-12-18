@@ -12,6 +12,8 @@ import ListPagar from './routes/listpagare.jsx';
 import FormularioPostulante from './routes/Postulacion.jsx';
 import CrearPatente from './routes/CrearPatente.jsx';
 import Patentes from './routes/Patentes.jsx';
+import UpdateFormpostulante from './routes/updateForm.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: '/patentes',
         element: <Patentes/>,
+      },
+      {
+        path: '/updateForm',
+        element: <UpdateFormpostulante/>,
       },
     ],
   },
