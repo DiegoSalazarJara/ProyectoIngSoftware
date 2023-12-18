@@ -50,6 +50,7 @@ export default function Navbar() {
     { id: 'id-postulaciones' ,name: 'Mi postulación', href: 'mipostulacion', current: false },
     { id: 'id-patentes' ,name: 'Mi patente', href: 'patente', current: false },
     { name: 'Ver mi apelación', href: 'apelaciones', current: false },
+    { name: 'Actualizar mi apelación', href: 'actualizarapelacion', current: false },
     { name: 'Crear apelación', href: 'apelacion', current: false },
   ]
   

@@ -23,6 +23,7 @@ import VerRespuesta from './routes/verRespuesta.jsx';
 import VerResApelacion from './routes/verResApelacion.jsx';
 import ListarPagares from './components/ListarPagares.jsx';
 import VerEvaluadores from './components/VerEvaluadores.jsx';
+import UpdateApelacion from './components/UpdateApelacion.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: '/apelaciones',
         element: <VerApelacion/>,
+      },
+      {
+        path: '/actualizarapelacion',
+        element: <UpdateApelacion/>,
       },
       {
         path: '/ListarPagares',

@@ -34,7 +34,7 @@ export const FormResApelacion = async (data) => {
 
   export const updateApelacion = async (rutpostulante, data) => {
     try {
-      const response = await axios.put(`/apelacion/${rutpostulante}`, data);
+      const response = await axios.patch(`/apelacion/`+rutpostulante, data);
       return response;
     } catch (error) {
       console.error('Error al actualizar la respuesta de la apelación:', error);
