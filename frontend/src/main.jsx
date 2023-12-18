@@ -21,7 +21,7 @@ import FormApelacion from './routes/formApelacion.jsx';
 import VerApelacion from './routes/verApelacion.jsx';
 import VerRespuesta from './routes/verRespuesta.jsx';
 import VerResApelacion from './routes/verResApelacion.jsx';
-import ListarPagares from './components/ListarPagares.jsx';
+import ListPagares from './components/ListarPagares.jsx';
 import VerEvaluadores from './components/VerEvaluadores.jsx';
 import UpdateApelacion from './components/UpdateApelacion.jsx';
 const router = createBrowserRouter([
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/ListarPagares',
-        element: <ListarPagares/>,
+        element: <ListPagares/>,
       },
       {
         path: '/VerEvaluadores',

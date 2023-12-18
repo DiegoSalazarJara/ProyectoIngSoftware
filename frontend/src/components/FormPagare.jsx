@@ -59,6 +59,7 @@ import { showCreateForm } from '../helpers/swaHelper.js';
               type="text"
               name="postulanteId"
               id="postulanteId"
+              placeholder='Id del Postulante'
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("postulanteId", {
                 required: {
@@ -81,6 +82,7 @@ import { showCreateForm } from '../helpers/swaHelper.js';
               <input
               type="text" 
               name="evaluadorId"
+              placeholder='Id del Evaluador'
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("evaluadorId", {
                 required: {

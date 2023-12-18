@@ -112,6 +112,14 @@ export const showDeleteRespuesta = async () => {
 
 }
 
+export const showDeletePagare = async () => {
+  await Toast.fire({
+    icon: "success",
+    title: "Pagare eliminado exitosamente"
+  });
+
+}
+
 export const showCreateForm = async () => {
   await Toast.fire({
     icon: "success",

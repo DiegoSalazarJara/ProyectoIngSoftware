@@ -1,6 +1,6 @@
 import ListarPagares from "../components/ListarPagares";
 
-export default function ListarPagares() {
+export default function ListPagares() {
 
     return (
       <>

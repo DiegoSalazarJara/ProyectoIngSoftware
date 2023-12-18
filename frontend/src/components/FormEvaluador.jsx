@@ -58,6 +58,7 @@ export default function FormEvaluador() {
                       type="text"
                       name="nombre"
                       id="nombre"
+                      placeholder='Nombre del Evaluador'
                       {...register("nombre", { required: 'Campo requerido' })}
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                         errors.nombre ? 'border-red-500' : ''
@@ -78,6 +79,7 @@ export default function FormEvaluador() {
                       type="text"
                       name="apellido"
                       id="apellido"
+                      placeholder='Apellido del Evaluador'
                       {...register("apellido", { required: 'Campo requerido' })}
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                         errors.apellido ? 'border-red-500' : ''
@@ -99,6 +101,7 @@ export default function FormEvaluador() {
                       list="especialidades"
                       name="especialidad"
                       id="especialidad"
+                      placeholder='Especialidad del Evaluador'
                       {...register("especialidad", { required: 'Campo requerido' })}
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                         errors.especialidad ? 'border-red-500' : ''
@@ -123,6 +126,7 @@ export default function FormEvaluador() {
                       type="email"
                       name="correoElectronico"
                       id="correoElectronico"
+                      placeholder='Correo Electrónico del Evaluador'
                       {...register("correoElectronico", { required: 'Campo requerido' })}
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                         errors.correoElectronico ? 'border-red-500' : ''
@@ -143,6 +147,7 @@ export default function FormEvaluador() {
                       type="tel"
                       name="telefono"
                       id="telefono"
+                      placeholder='Teléfono del Evaluador'
                       {...register("telefono", { required: 'Campo requerido' })}
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                         errors.telefono ? 'border-red-500' : ''

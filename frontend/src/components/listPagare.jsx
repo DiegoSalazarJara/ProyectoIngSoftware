@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import { useState, useEffect } from 'react';
 import { listPagare, deletePagare, getPagareById } from '../services/pagare.service.js';
 import { format } from 'date-fns';
-import { showDeleteForm, showExportForm } from '../helpers/swaHelper.js'; 
+import { showDeletePagare, showExportForm } from '../helpers/swaHelper.js'; 
 import jsPDF from 'jspdf';
 
 
@@ -36,7 +36,7 @@ export default function Pagare() {
     try {
       await deletePagare(id);
       console.log('Eliminación exitosa - Status 200');
-          showDeleteForm();
+          showDeletePagare();
           setTimeout(() => {
             window.location.reload();
           }, 2000);
