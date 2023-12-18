@@ -1,28 +1,47 @@
+import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
+import { createEvaluador } from '../services/evaluador.service';
+import {  showCreateFormE } from '../helpers/swaHelper.js';
 
 export default function FormEvaluador() {
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const {
     register,
     formState: { errors },
-    watch,
-    setValue,
-    reset,
-  } = useForm({
-    defaultValues: {
-      nombre: "",
-      apellido: "",
-      especialidad: "",
-      correoElectronico: "",
-      telefono: "",
-    },
-  });
+    handleSubmit,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      console.log('Datos antes de la solicitud POST:', data);
+
+      const formData = new FormData();
+      formData.append('nombre', data.nombre);
+      formData.append('apellido', data.apellido);
+      formData.append('especialidad', data.especialidad);
+      formData.append('correoElectronico', data.correoElectronico);
+      formData.append('telefono', data.telefono);
+
+      const res = await createEvaluador(formData);
+      console.log('Creación de evaluador exitosa - Estado 200');
+      showCreateFormE();
+     
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+
+     
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
       <div className="mt-10">
-        <form className="mx-auto max-w-sm">
+        <form className="mx-auto max-w-sm" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div>
               <h1 className="text-base font-semibold leading-9 text-gray-900 text-center">Formulario Evaluador</h1>
@@ -39,9 +58,14 @@ export default function FormEvaluador() {
                       type="text"
                       name="nombre"
                       id="nombre"
-                      {...register("nombre")}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      {...register("nombre", { required: 'Campo requerido' })}
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        errors.nombre ? 'border-red-500' : ''
+                      }`}
                     />
+                    {errors.nombre && (
+                      <p className="mt-1 text-sm text-red-500">{errors.nombre.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -54,9 +78,14 @@ export default function FormEvaluador() {
                       type="text"
                       name="apellido"
                       id="apellido"
-                      {...register("apellido")}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      {...register("apellido", { required: 'Campo requerido' })}
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        errors.apellido ? 'border-red-500' : ''
+                      }`}
                     />
+                    {errors.apellido && (
+                      <p className="mt-1 text-sm text-red-500">{errors.apellido.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -67,11 +96,21 @@ export default function FormEvaluador() {
                   <div className="mt-2">
                     <input
                       type="text"
+                      list="especialidades"
                       name="especialidad"
                       id="especialidad"
-                      {...register("especialidad")}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      {...register("especialidad", { required: 'Campo requerido' })}
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        errors.especialidad ? 'border-red-500' : ''
+                      }`}
                     />
+                    {errors.especialidad && (
+                      <p className="mt-1 text-sm text-red-500">{errors.especialidad.message}</p>
+                    )}
+                    <datalist id="especialidades">
+                      <option value="Patentes Alcohólicas"></option>
+                      <option value="Patentes Comerciales"></option>
+                    </datalist>
                   </div>
                 </div>
 
@@ -84,9 +123,14 @@ export default function FormEvaluador() {
                       type="email"
                       name="correoElectronico"
                       id="correoElectronico"
-                      {...register("correoElectronico")}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      {...register("correoElectronico", { required: 'Campo requerido' })}
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        errors.correoElectronico ? 'border-red-500' : ''
+                      }`}
                     />
+                    {errors.correoElectronico && (
+                      <p className="mt-1 text-sm text-red-500">{errors.correoElectronico.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -99,15 +143,20 @@ export default function FormEvaluador() {
                       type="tel"
                       name="telefono"
                       id="telefono"
-                      {...register("telefono")}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      {...register("telefono", { required: 'Campo requerido' })}
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        errors.telefono ? 'border-red-500' : ''
+                      }`}
                     />
+                    {errors.telefono && (
+                      <p className="mt-1 text-sm text-red-500">{errors.telefono.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
+
           <div className="mt-6 flex items-center justify-center gap-x-6">
             <button
               type="submit"
@@ -116,7 +165,6 @@ export default function FormEvaluador() {
               Enviar
             </button>
           </div>
-
         </form>
       </div>
     </div>
