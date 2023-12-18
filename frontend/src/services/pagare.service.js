@@ -11,6 +11,16 @@ export const createPagare = async (formPagare) => {
   }
 };
 
+export async function listPagares() {
+  try {
+    const res = await axios.get('pagare/');
+    console.log(res)
+    return res
+  } catch (error) {
+    console.error('Error fetching Pagare:', error);
+  }
+}
+
 export const listPagare = async (searchValue) => {
   try {
     const res = await axios.get('pagare/'+searchValue);
@@ -23,23 +33,15 @@ export const listPagare = async (searchValue) => {
   }
 };
 
-/*
-export const getPagares = async () => {
+export const getPagareById = async (pagareId) => {
   try {
-    
-    const response = await axios.get('pagare');
-    
-    
-    if (!response.ok) {
-      throw new Error('Error al obtener pagares: ' + response.statusText);
-    }
-
-    const data = await response.json();
-    return data;
+    const response = await axios.get('pagare/' + pagareId);
+    return response.data;
   } catch (error) {
-    throw new Error('Error al obtener pagares: ' + error.message);
+    console.error('Error al obtener el pagaré por ID:', error);
+    return { status: 500, data: [], error: error.message };
   }
-};*/
+};
 
 export const deletePagare = async (pagareId) => {
   try {

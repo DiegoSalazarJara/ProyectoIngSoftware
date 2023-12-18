@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import { useForm } from "react-hook-form";
 import {createPagare} from '../services/pagare.service.js'
-
+import { showCreateForm } from '../helpers/swaHelper.js'; 
 
   export default function FormPagare() {
     const [successMessage, setSuccessMessage] = useState(null);
@@ -25,9 +25,13 @@ import {createPagare} from '../services/pagare.service.js'
       formPagare.append("evaluadorId", data.evaluadorId);
 
       await createPagare(formPagare);
+      console.log('Creacion de pagare exitosa - Status 200');
+      showCreateForm();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
 
-
-      setSuccessMessage('Pagare creado exitosamente');
+      
     } catch (err) {
       console.log(err);
     } 
