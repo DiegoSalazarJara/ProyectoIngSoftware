@@ -42,6 +42,7 @@ export default function FormResApelacion() {
                                 })}
                                 id="postulacionId"
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                placeholder="Ej: 60f1b5b3e6b3a3b3e4a3b3e6"
                             />
                             {errors.apelacionId && (
                                 <span className="text-red-500">{errors.postulacionId.message}</span>
@@ -64,6 +65,7 @@ export default function FormResApelacion() {
                                 })}
                                 id="evaluadorId"
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                placeholder="Ej: 60f1b5b3e6b3a3b3e4a3b3e6"
                             />
                             {errors.evaluadorId && (
                                 <span className="text-red-500">{errors.evaluadorId.message}</span>
@@ -113,6 +115,7 @@ export default function FormResApelacion() {
                                         id="mensaje"
                                         rows="3"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Ej: Según el reglamento..."
                                     ></textarea>
                                     {errors.mensaje && (
                                  <span className="text-red-500">{errors.mensaje.message}</span>

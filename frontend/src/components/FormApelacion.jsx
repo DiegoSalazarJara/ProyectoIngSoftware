@@ -42,6 +42,7 @@ export default function FormApelacion() {
                                 })}
                                 id="respuestaId"
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                placeholder="Ej: 656a6c088674286254a070d2"
                             />
                             {errors.postulacionId && (
                                 <span className="text-red-500">{errors.postulacionId.message}</span>
@@ -74,6 +75,7 @@ export default function FormApelacion() {
                         })}
                         id="nombre"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Ej: Juan Pérez"
                     />
                     {errors.nombre && <span className="text-red-500">{errors.nombre.message}</span>}
                     </div>
@@ -166,6 +168,7 @@ export default function FormApelacion() {
                         })}
                         id="nombreEmpresa"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Ej: Empresa S.A."
                     />
                     {errors.nombreEmpresa && <span className="text-red-500">{errors.nombreEmpresa.message}</span>}
                     </div>
@@ -196,6 +199,7 @@ export default function FormApelacion() {
                         })}
                         id="direccion"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Ej: Av. Siempre Viva 1234"
                     />
                     {errors.direccion && <span className="text-red-500">{errors.direccion.message}</span>}
                     </div>
@@ -210,6 +214,7 @@ export default function FormApelacion() {
                         })}
                         id="apelacion"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Ej: Solicitud de apelación..."
                     />
                     {errors.apelacion && <span className="text-red-500">{errors.apelacion.message}</span>}
                     </div>

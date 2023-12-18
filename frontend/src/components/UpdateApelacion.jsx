@@ -59,6 +59,7 @@ export default function FormUpdateApelacion() {
                     })}
                     id="nombre"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Ej: Juan Pérez"
                 />
                 {errors.nombre && <span className="text-red-500">{errors.nombre.message}</span>}
                 </div>
@@ -151,6 +152,7 @@ export default function FormUpdateApelacion() {
                     })}
                     id="nombreEmpresa"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Ej: Empresa S.A."
                 />
                 {errors.nombreEmpresa && <span className="text-red-500">{errors.nombreEmpresa.message}</span>}
                 </div>
@@ -181,6 +183,7 @@ export default function FormUpdateApelacion() {
                     })}
                     id="direccion"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Ej: Av. Siempreviva 123"
                 />
                 {errors.direccion && <span className="text-red-500">{errors.direccion.message}</span>}
                 </div>
@@ -195,6 +198,7 @@ export default function FormUpdateApelacion() {
                     })}
                     id="apelacion"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Ej: Mi apelación es..."
                 />
                 {errors.apelacion && <span className="text-red-500">{errors.apelacion.message}</span>}
                 </div>
