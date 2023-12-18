@@ -37,20 +37,20 @@ export const apelacionBodySchema = Joi.object({
         "string.base": "El rut de la empresa debe ser de tipo string.",
         "string.pattern.base": "El rut de la empresa debe tener un formato válido (ejemplo: 12345678-9) y el primer dígito debe ser mayor o igual a 3 y debe estar escrito sin puntos."
       }),
-  nombreEmpresa: Joi.string().label('nombreEmpresa').required().regex(/^[A-Za-z\s]+$/).max(100).messages({
-    "string.empty": "El nombre de la empresa no puede estar vacío.",
-    "any.required": "El nombre de la empresa es obligatorio.",
-    "string.base": "El nombre de la empresa debe ser de tipo string.",
-    "string.pattern.base": "El nombre de la empresa solo puede contener letras y espacios.",
-    "string.max": "El nombre de la empresa no puede exceder los 100 caracteres."
-  }),
-  direccion: Joi.string().label('direccionEmpresa').required().regex(/^[A-Za-z0-9#\s,ÁÉÍÓÚáéíóúÑñ]+$/u).max(100).messages({
-    "string.empty": "La dirección de la empresa no puede estar vacía.",
-    "string.base": "La dirección de la empresa debe ser de tipo string.",
-    "any.required": "La dirección de la empresa es obligatoria.",
-    "string.pattern.base": "La dirección de la empresa solo puede contener letras, números, espacios, el símbolo #, la coma y caracteres acentuados.",
-    "string.max": "La dirección de la empresa no puede exceder los 100 caracteres."
-}),
+      nombreEmpresa: Joi.string().label('nombreEmpresa').required().regex(/^[A-Za-z\s.,]+$/).max(100).messages({
+        "string.empty": "El nombre de la empresa no puede estar vacío.",
+        "any.required": "El nombre de la empresa es obligatorio.",
+        "string.base": "El nombre de la empresa debe ser de tipo string.",
+        "string.pattern.base": "El nombre de la empresa solo puede contener letras, espacios, comas y puntos.",
+        "string.max": "El nombre de la empresa no puede exceder los 100 caracteres."
+      }),
+      direccion: Joi.string().label('direccionEmpresa').required().regex(/^[A-Za-z0-9#\s,.ÁÉÍÓÚáéíóúÑñ]+$/u).max(100).messages({
+        "string.empty": "La dirección de la empresa no puede estar vacía.",
+        "string.base": "La dirección de la empresa debe ser de tipo string.",
+        "any.required": "La dirección de la empresa es obligatoria.",
+        "string.pattern.base": "La dirección de la empresa solo puede contener letras, números, espacios, el símbolo #, la coma, el punto y caracteres acentuados.",
+        "string.max": "La dirección de la empresa no puede exceder los 100 caracteres."
+    }),
   apelacion: Joi.string().label('apelacion').required().custom((value, helpers) => {
     const wordCount = value.trim().split(/\s+/).length;
     if (wordCount <= 500) {
