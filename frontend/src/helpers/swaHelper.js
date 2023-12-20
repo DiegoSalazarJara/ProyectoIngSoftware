@@ -1,5 +1,4 @@
 import Swal from 'sweetalert2';
-
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -66,6 +65,13 @@ export const showRenovar = async (response) => {
   await Toast.fire({
     icon: "info",
     title: response
+  });
+}
+
+export const showError = async (error) => {
+  await Toast.fire({
+    icon: "info",
+    title: error
   });
 }
 
