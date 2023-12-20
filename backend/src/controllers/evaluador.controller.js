@@ -37,10 +37,10 @@ export const getEvaluadorById = async (req, res) => {
 
 // Crear un nuevo evaluador
 export const createEvaluador = async (req, res) => {
-  const { nombre, apellido, especialidad, correoElectronico, telefono } = req.body;
+  const { nombre, apellido,rutEvaluador, especialidad, correoElectronico, telefono } = req.body;
 
 // Validaciones de entrada de datos
-if (!nombre || !apellido || !especialidad || !correoElectronico || !telefono) {
+if (!nombre || !apellido || !rutEvaluador || !especialidad || !correoElectronico || !telefono) {
   return res.status(400).json({ message: 'Todos los campos son obligatorios' });
 }
 
@@ -50,7 +50,7 @@ if (!emailRegex.test(correoElectronico)) {
   return res.status(400).json({ message: 'Formato de correo electrónico no válido' });
 }
 
-  const evaluador = new Evaluador({ nombre, apellido, especialidad, correoElectronico, telefono });
+  const evaluador = new Evaluador({ nombre, apellido,rutEvaluador, especialidad, correoElectronico, telefono });
 
   try {
     const nuevoEvaluador = await evaluador.save();
@@ -63,7 +63,7 @@ if (!emailRegex.test(correoElectronico)) {
 // Actualizar un evaluador por ID
 export const updateEvaluador = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, especialidad, correoElectronico, telefono } = req.body;
+  const { nombre, apellido,rutEvaluador, especialidad, correoElectronico, telefono } = req.body;
 
  // Validación de ID
  if (!id) {
@@ -89,6 +89,7 @@ if (!emailRegex.test(correoElectronico)) {
 
     evaluador.nombre = nombre;
     evaluador.apellido = apellido;
+    evaluador.rutEvaluador = rutEvaluador;
     evaluador.especialidad = especialidad;
     evaluador.correoElectronico = correoElectronico;
     evaluador.telefono = telefono;

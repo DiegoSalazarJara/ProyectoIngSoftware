@@ -10,6 +10,10 @@ const evaluadorSchema = new Schema({
     type: String,
     required: true,
   },
+  rutEvaluador: {
+    type: String,
+    required: true,
+  },
   especialidad: {
     type: String,
     required: true,
