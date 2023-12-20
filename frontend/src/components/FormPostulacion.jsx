@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { createForms } from '../services/postulacion.service.js';
 import { useState } from 'react';
 import { showConfirmForm, showErrorForm } from '../helpers/swaHelper.js';
+import { showError } from '../helpers/swaHelper.js';
 export default function FormPostulante() {
 
   const [certificadoResidencia, setCertificadoResidencia] = useState(null);
@@ -42,12 +43,14 @@ export default function FormPostulante() {
         setCertificadoConstitucion(null)
         setFotocopiaCarnet(null)
         setCertificadoArriendo(null)
-      } else if (response.status === 500) {
-        await showErrorForm();
+      }else if(response.status === 400){
+        await showError(response.data[0].response.data.message)
+      } else if(response.status === 500){
+        await showError(response.data[0].response.data.message)
       }
-
+      console.log(response)
     } catch (error) {
-      console.log("Error:",error)
+      console.log("Error:",error)      
     }finally {
       setIsLoading(false);
     }
@@ -258,8 +261,8 @@ export default function FormPostulante() {
                     },
                   })}
                 />
-                {errors.nombreEmpresa && (
-                  <span className="text-red-500 text-sm">{errors.nombreEmpresa.message}</span>
+                {errors.direccionEmpresa && (
+                  <span className="text-red-500 text-sm">{errors.direccionEmpresa.message}</span>
                 )}
               </div>
             </div>

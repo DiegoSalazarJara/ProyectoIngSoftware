@@ -9,10 +9,10 @@ export const createForms = async (formData) => {
     };
     
     const response = await axios.post('/postulacion', formData, config);
-    showError(response.response.data.message)
+
     return response;
   } catch (error) {
-    return { status: 500, data: [], error: error.message };
+    return { status: 500, data: [error], error: error.message };
   }
 };
 
