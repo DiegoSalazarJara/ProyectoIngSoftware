@@ -1,5 +1,5 @@
 import axios from './root.service';
-
+import { showError } from '../helpers/swaHelper.js';
 export const createForms = async (formData) => {
   try {
     const config = {
@@ -9,7 +9,7 @@ export const createForms = async (formData) => {
     };
     
     const response = await axios.post('/postulacion', formData, config);
-
+    showError(response.response.data.message)
     return response;
   } catch (error) {
     return { status: 500, data: [], error: error.message };
@@ -25,7 +25,7 @@ export const UpdateForms = async (formData, rut) => {
     };
     
     const response = await axios.put('/postulacion/'+rut, formData, config);
-    console.log(response)
+    
     return response;
   } catch (error) {
     return { status: 500, data: [], error: error.message };

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import cookies from 'js-cookie';
-import { showError } from '../helpers/swaHelper.js';
 const API_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:4000/api';
 
 const instance = axios.create({
@@ -25,8 +24,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('Axios error:', error);
-    return showError(error.response.data.message);
+    return Promise.reject(error);
   }
 );
 
